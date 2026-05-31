@@ -63,7 +63,7 @@ Para replicar este proyecto en tu entorno local:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone <TU_URL_DE_GITHUB_AQUI>
+   git clone https://github.com/santiagocano298366/smartroot-soil-moisture.git
    cd PROYECTO_FINAL
    ```
 2. **Entorno Virtual e Instalación (Opcional pero recomendado):**

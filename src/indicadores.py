@@ -13,4 +13,8 @@ Funciones:
     resumen_indicadores()      -- tabla consolidada de todos los KPIs
 
 Desarrollado en: 03_POO_indicadores.ipynb
+
+Autor:     Santiago Cano Molina
+Perfil:    Ingeniero Mecatrónico · Maestría en Automatización y Control Industrial
+Proyecto:  SmartRoot — Fundamentos de Programación Científica · Posgrado 2026-1
 """

@@ -15,4 +15,8 @@ Funciones:
     tablero_control()          -- dashboard integrado (todos los gráficos)
 
 Desarrollado en: 05_tablero_control.ipynb
+
+Autor:     Santiago Cano Molina
+Perfil:    Ingeniero Mecatrónico · Maestría en Automatización y Control Industrial
+Proyecto:  SmartRoot — Fundamentos de Programación Científica · Posgrado 2026-1
 """

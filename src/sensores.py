@@ -15,4 +15,8 @@ Clases:
     Parcela           -- colección de sensores en una ubicación
 
 Desarrollado en: 03_POO_indicadores.ipynb
+
+Autor:     Santiago Cano Molina
+Perfil:    Ingeniero Mecatrónico · Maestría en Automatización y Control Industrial
+Proyecto:  SmartRoot — Fundamentos de Programación Científica · Posgrado 2026-1
 """

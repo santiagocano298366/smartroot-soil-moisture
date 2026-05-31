@@ -13,4 +13,8 @@ Funciones:
     resumen_montecarlo()       -- estadísticos e intervalos de confianza
 
 Desarrollado en: 04_simulacion_montecarlo.ipynb
+
+Autor:     Santiago Cano Molina
+Perfil:    Ingeniero Mecatrónico · Maestría en Automatización y Control Industrial
+Proyecto:  SmartRoot — Fundamentos de Programación Científica · Posgrado 2026-1
 """
