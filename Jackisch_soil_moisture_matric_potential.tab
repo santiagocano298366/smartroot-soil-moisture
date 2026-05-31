@@ -1,0 +1,31 @@
+/* DATA DESCRIPTION:
+Citation:	Jackisch, Conrad; Andrä, Ines; Germer, Kai; Schulz, Katrin; Schiedung, Marcus; Haller-Jans, Jaqueline; Schneider, Jonas; Jaquemotte, Julia; Helmer, Philipp; Lotz, Leander; Graeff, Thomas; Bauer, Andreas; Hahn, Irene; Sanda, Martin; Kumpan, Monika; Dorner, Johann; de Rooij, Gerrit; Wessel-Bothe, Stefan; Kottmann, Lorenz; Schittenhelm, Siegfried; Durner, Wolfgang (2018): Soil moisture and matric potential - An open field comparison of sensor systems [dataset]. PANGAEA, https://doi.org/10.1594/PANGAEA.892319, 
+	Supplement to: Jackisch, Conrad; Germer, Kai; Graeff, Thomas; Andrä, Ines; Schulz, Katrin; Schiedung, Marcus; Haller-Jans, Jaqueline; Schneider, Jonas; Jaquemotte, Julia; Helmer, Philipp; Lotz, Leander; Bauer, Andreas; Hahn, Irene; Sanda, Martin; Kumpan, Monika; Dorner, Johann; de Rooij, Gerrit; Wessel-Bothe, Stefan; Kottmann, Lorenz; Schittenhelm, Siegfried; Durner, Wolfgang (2020): Soil moisture and matric potential- an open field comparison of sensor systems. Earth System Science Data, 12(1), 683-697, https://doi.org/10.5194/essd-12-683-2020
+Abstract:	Soil water content and matric potential are central hydrological state variables. A large variety of automated probes and sensor systems for state monitoring exists and is frequently applied. Most studies solely rely on the calibration by the manufacturers. Until now, there is no commonly agreed calibration procedure. Moreover, several believes about the capabilities and reliabilities of specific sensing methods or sensor systems exist and compete.
+	A consortium of several institutions conducted a comparison study of currently available sensor systems for soil moisture and matric potential under field conditions. All probes have been installed in 0.2 m depth under best practise procedure. We present the setup and the recorded data of 58 probes of 15 different systems measuring soil moisture and 50 probes of 14 different systems for matric potential, which have been used during the campaign in 2016. The data is extended by pedophysical analyses of the soil and laboratory reference measurements for calibration.
+Related to:	Jackisch, Conrad; Durner, Wolfgang; Germer, Kai; Graeff, Thomas; Sensor Comparison Study Consortium (in review): Soil moisture and matric potential - what do we measure? Vadose Zone Journal
+Comment:	This repository holds the data and an exemplary python script.
+	The Jupyter Notebook *Sensor_Comparision_EEMD.ipynb* reads data from a field comparison of numerous sensors for soil moisture and matric potential. It uses an Ensemble Empirical Mode Decomposition (EEMD) for spectral recomposition of the recorded signals in order to avoid any assumptions about offset or scaling between the individual time series.
+	The notebook including the included python modules are given under GNU GPL3, the data under CreativeCommons BY-NC-SA 4.0 without any liability.
+Parameter(s):	File content (Content) * PI: Jackisch, Conrad (https://orcid.org/0000-0001-7389-1201, jackisch@kit.edu)
+	File name (File name) * PI: Jackisch, Conrad (https://orcid.org/0000-0001-7389-1201, jackisch@kit.edu)
+	File format (File format) * PI: Jackisch, Conrad (https://orcid.org/0000-0001-7389-1201, jackisch@kit.edu)
+	File size [kByte] (File size) * PI: Jackisch, Conrad (https://orcid.org/0000-0001-7389-1201, jackisch@kit.edu)
+	Uniform resource locator/link to file (URL file) * PI: Jackisch, Conrad (https://orcid.org/0000-0001-7389-1201, jackisch@kit.edu)
+License:	Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC-BY-NC-SA-3.0) (URI: https://creativecommons.org/licenses/by-nc-sa/3.0/)
+Size:	65 data points
+*/
+Content	File name	File format	File size [kByte]	URL file
+Readme file	README.md	MD	1.680	https://store.pangaea.de/Publications/JackischC-etal_2018/README.md
+Jupyter Notebook	Sensor_Comparision_EEMD.ipynb	IPYNB	1040.812	https://store.pangaea.de/Publications/JackischC-etal_2018/Sensor_Comparision_EEMD.ipynb
+Records of matric potential in 20 cm depth from all sensors at the survey plot	Psi20.xlsx	XLSX	3098.613	https://store.pangaea.de/Publications/JackischC-etal_2018/Psi20.xlsx
+Records of soil moisture in 20 cm depth from all sensors at the survey plot	Theta20.xlsx	XLSX	2674.299	https://store.pangaea.de/Publications/JackischC-etal_2018/Theta20.xlsx
+Records of soil temperature in 20 cm depth (or at least inside the sensor) from all sensors at the survey plot	T20.xlsx	XLSX	2621.394	https://store.pangaea.de/Publications/JackischC-etal_2018/T20.xlsx
+Meteorological data from the German Meteorological Service (DWD) station 662	dwdR.xlsx	XLSX	248.747	https://store.pangaea.de/Publications/JackischC-etal_2018/dwdR.xlsx
+Meteorological data from a close-by station of the Julius Kuehn Institute	meteo_jki.xlsx	XLSX	478.731	https://store.pangaea.de/Publications/JackischC-etal_2018/meteo_jki.xlsx
+Records of pedophysical soil core analyses using the Hyprop apparatus	vG_JKI_params.xlsx	XLSX	4.922	https://store.pangaea.de/Publications/JackischC-etal_2018/vG_JKI_params.xlsx
+Records of pedophysical soil core analyses using the Hyprop apparatus	ku_obs.xlsx	XLSX	10.362	https://store.pangaea.de/Publications/JackischC-etal_2018/ku_obs.xlsx
+Records of pedophysical soil core analyses using the Hyprop apparatus	retention_obs.xlsx	XLSX	18.095	https://store.pangaea.de/Publications/JackischC-etal_2018/retention_obs.xlsx
+Records of pedophysical soil core analyses using the Hyprop apparatus	hyprop.xlsx	XLSX	65.457	https://store.pangaea.de/Publications/JackischC-etal_2018/hyprop.xlsx
+Summary of the latter and further pedophysical laboratory analyses of the samples taken at the survey plot	pedophysical_data.xlsx	XLSX	10.824	https://store.pangaea.de/Publications/JackischC-etal_2018/pedophysical_data.xlsx
+Reference measurements of a monolithic soil sample and six reference sensors	lab_mono.xlsx	XLSX	172.086	https://store.pangaea.de/Publications/JackischC-etal_2018/lab_mono.xlsx

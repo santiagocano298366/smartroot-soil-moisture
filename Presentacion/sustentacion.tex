@@ -1,0 +1,1051 @@
+\documentclass[11pt, aspectratio=169]{beamer}
+
+% ============================================================
+% TEMA Y COLORES
+% ============================================================
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{pifont}
+\usepackage{multirow}
+\usepackage{lmodern}
+\usepackage{fontawesome5}
+\usepackage[nopatch=footnote]{microtype}
+
+% ============================================================
+% PALETA DE COLORES SMARTROOT
+% ============================================================
+\definecolor{SmartBlue}{RGB}{26,82,118}
+\definecolor{SmartGreen}{RGB}{39,174,96}
+\definecolor{SmartOrange}{RGB}{230,126,34}
+\definecolor{SmartRed}{RGB}{192,57,43}
+\definecolor{SmartGray}{RGB}{52,73,94}
+\definecolor{SmartLightBlue}{RGB}{41,128,185}
+\definecolor{SmartYellow}{RGB}{243,156,18}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.95}
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+% ============================================================
+% PERSONALIZACIÓN DEL TEMA
+% ============================================================
+\setbeamercolor{palette primary}{bg=SmartBlue,fg=white}
+\setbeamercolor{palette secondary}{bg=SmartBlue!80,fg=white}
+\setbeamercolor{palette tertiary}{bg=SmartBlue!60,fg=white}
+\setbeamercolor{palette quaternary}{bg=SmartBlue!40,fg=white}
+\setbeamercolor{title}{fg=SmartBlue}
+\setbeamercolor{frametitle}{bg=SmartBlue,fg=white}
+\setbeamercolor{structure}{fg=SmartBlue}
+\setbeamercolor{block title}{bg=SmartBlue,fg=white}
+\setbeamercolor{block body}{bg=SmartBlue!8,fg=SmartGray}
+\setbeamercolor{block title alerted}{bg=SmartRed,fg=white}
+\setbeamercolor{block body alerted}{bg=SmartRed!8,fg=SmartGray}
+\setbeamercolor{block title example}{bg=SmartGreen,fg=white}
+\setbeamercolor{block body example}{bg=SmartGreen!8,fg=SmartGray}
+\setbeamerfont{frametitle}{size=\normalsize,series=\bfseries}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+
+% ============================================================
+% ESTILO DE CÓDIGO
+% ============================================================
+\lstdefinestyle{smartstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{SmartLightBlue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=3,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
+             {ú}{{\'u}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1,
+    frame=single,
+    rulecolor=\color{SmartGray!30},
+    xleftmargin=12pt,
+    xrightmargin=4pt
+}
+\lstset{style=smartstyle, language=Python}
+
+% ============================================================
+% COMANDOS AUXILIARES
+% ============================================================
+\newcommand{\semverde}[1]{\textcolor{SmartGreen}{\textbf{#1}}}
+\newcommand{\semamarillo}[1]{\textcolor{SmartYellow}{\textbf{#1}}}
+\newcommand{\semrojo}[1]{\textcolor{SmartRed}{\textbf{#1}}}
+\newcommand{\tick}{\textcolor{SmartGreen}{\ding{52}}}
+\newcommand{\kpirow}[5]{#1 & #2 & #3 & #4 & \cellcolor{SmartGreen!25}\semverde{#5} \\}
+
+% ============================================================
+% METADATOS
+% ============================================================
+\title[SmartRoot --- Decisión de Riego con Python]{%
+  \textbf{SmartRoot}\\[4pt]
+  {\large Sistema Inteligente de Decisión de Riego\\
+  y Validación de Sensores Hídricos}\\[4pt]
+  {\normalsize mediante Programación Científica en Python}}
+
+\subtitle{Trabajo Final --- Fundamentos de Programación}
+
+\author[Estudiante | Becerra Ph.D.]{%
+  [Nombre del Estudiante]\\[2pt]
+  {\small Docente: Miguel A. Becerra Ph.D.}}
+
+\institute[Maestría ACI 2026-1]{%
+  Maestría en Automatización y Control Industrial\\
+  Fundamentos de Programación Científica · Posgrado 2026-1}
+
+\date{5 de junio de 2026}
+
+% ============================================================
+% LOGO EN EL PIE
+% ============================================================
+% \logo{\includegraphics[height=0.6cm]{logo_universidad.png}}
+
+% ============================================================
+% DOCUMENTO
+% ============================================================
+\begin{document}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 1: PORTADA
+% ------------------------------------------------------------------
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+    % Fondo superior
+    \fill[SmartBlue] (current page.north west) rectangle
+        ([yshift=-0.38\paperheight]current page.north east);
+    % Franja inferior
+    \fill[SmartGreen!80!SmartBlue] (current page.south west) rectangle
+        ([yshift=0.06\paperheight]current page.south east);
+\end{tikzpicture}
+
+\vspace*{0.3cm}
+\begin{columns}[c]
+\column{0.65\textwidth}
+{\color{white}\LARGE\bfseries SmartRoot}\\[3pt]
+{\color{white!85}\large Sistema Inteligente de Decisión de Riego}\\[2pt]
+{\color{white!85}\large y Validación de Sensores Hídricos}\\[6pt]
+{\color{white!70}\normalsize mediante Programación Científica en Python}\\[12pt]
+\hrule width 0.9\textwidth height 0.3pt \relax
+\vspace{6pt}
+{\color{white!80}\small Trabajo Final · Fundamentos de Programación}
+
+\column{0.35\textwidth}
+\vspace{0.5cm}
+\begin{tcolorbox}[colback=white!15!SmartBlue,colframe=white!40,
+    arc=6pt, left=4pt, right=4pt, top=4pt, bottom=4pt]
+    \centering
+    {\color{white}\small\textbf{Dataset}}\\[2pt]
+    {\color{white!85}\scriptsize Jackisch et al. (2020)}\\[1pt]
+    {\color{white!85}\scriptsize JKI · Braunschweig, DE}\\[4pt]
+    {\color{white}\small\textbf{2\,494 registros}}\\[1pt]
+    {\color{white!85}\scriptsize Mayo--Julio 2016}\\[1pt]
+    {\color{white!85}\scriptsize Res. 30 min}
+\end{tcolorbox}
+\end{columns}
+
+\vspace{0.5cm}
+\begin{columns}[c]
+\column{0.5\textwidth}
+{\small\textbf{Elaborado por:} [Nombre del Estudiante]}\\
+{\small\textbf{Docente:} Miguel A. Becerra Ph.D.}
+
+\column{0.5\textwidth}
+{\small\textbf{Programa:} Maestría ACI}\\
+{\small\textbf{Entrega:} 5 de junio de 2026}
+\end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 2: TABLA DE CONTENIDO
+% ------------------------------------------------------------------
+\begin{frame}{Agenda de la Presentación}
+\begin{columns}[t]
+\column{0.5\textwidth}
+\tableofcontents[sections={1-5}]
+\column{0.5\textwidth}
+\tableofcontents[sections={6-10}]
+\end{columns}
+\vspace{0.4cm}
+\begin{tcolorbox}[colback=SmartBlue!8,colframe=SmartBlue!40,
+    arc=4pt,left=6pt,right=6pt,top=3pt,bottom=3pt]
+\centering
+{\small Presentación de \textbf{15--20 minutos} · Sustentación técnica del proyecto}
+\end{tcolorbox}
+\end{frame}
+
+\setcounter{tocdepth}{1}
+
+% ==================================================================
+\section{Problema y Contexto}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 3: EL PROBLEMA
+% ------------------------------------------------------------------
+\begin{frame}{1a. Problema y Contexto}
+\begin{alertblock}{Problema Central}
+\begin{itemize}
+    \item[\textbullet] Parcelas experimentales con \textbf{múltiples tecnologías} de sensores generan lecturas inconsistentes.
+    \item[\textbullet] Sin validación cruzada automática, los errores de sensor se confunden con estrés hídrico real.
+    \item[\textbullet] Decisiones de riego basadas en umbrales \textbf{determinísticos fijos} ignoran la incertidumbre del suelo.
+\end{itemize}
+\end{alertblock}
+
+\vfill
+
+\begin{block}{Pregunta de Investigación}
+\centering
+¿Cómo determinar automáticamente \textbf{cuándo, dónde y por qué} regar,\\
+cuantificando el riesgo con base en datos reales de sensores?
+\end{block}
+\end{frame}
+
+\begin{frame}{1b. Solución Propuesta (SmartRoot)}
+\begin{block}{SmartRoot como solución integral}
+\begin{itemize}
+    \item[\tick] \textbf{Validación cruzada} entre tensiómetro (referencia) y Gypsum (secundario).
+    \item[\tick] \textbf{5 KPI} con clasificación semáforo automática.
+    \item[\tick] \textbf{Montecarlo} para cuantificar probabilidad de riego urgente.
+    \item[\tick] \textbf{POO} para modelar sensores reales del dataset.
+\end{itemize}
+\end{block}
+
+\vfill
+
+\begin{tcolorbox}[colback=SmartGreen!10,colframe=SmartGreen!50,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\centering
+\textbf{Resultado global:} Los 5 KPI en estado \semverde{VERDE}\\
+Manejo hídrico \textbf{excelente} en mayo--julio 2016
+\end{tcolorbox}
+\end{frame}
+
+% ==================================================================
+\section{Datos y Dataset}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 4: DATASET
+% ------------------------------------------------------------------
+\begin{frame}{2a. Dataset Experimental}
+\begin{block}{Descripción del dataset (Jackisch et al., 2020)}
+\begin{itemize}
+    \item \textbf{Fuente:} PANGAEA (doi:10.1594/PANGAEA.892319)
+    \item \textbf{Parcela:} Julius Kühn-Institut (JKI), Braunschweig, Alemania
+    \item \textbf{Período:} 13 mayo -- 4 julio 2016
+    \item \textbf{Resolución:} 30 min por registro
+    \item \textbf{Total validado:} 2\,494 registros
+\end{itemize}
+\end{block}
+
+\vfill
+
+\begin{tcolorbox}[colback=SmartOrange!12,colframe=SmartOrange!50,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\textbf{Nota importante:} Los sensores Gypsum presentan una brecha de datos en los registros 1000--3600. Esto fue detectado y tratado automáticamente por el algoritmo de validación de SmartRoot.
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{2b. Sensores y Estadísticas}
+\begin{columns}[c]
+\column{0.45\textwidth}
+\begin{exampleblock}{Red de Sensores}
+\begin{itemize}
+    \item \textbf{Tensióm.} T42--T54
+    \item \textbf{Gypsum} Gyp1--4
+    \item \textbf{FDR} ECTM1--4
+    \item \textbf{Temp.} MPS6 1--4
+\end{itemize}
+\end{exampleblock}
+
+\column{0.55\textwidth}
+\begin{block}{Estadísticas (Media $\pm$ Std)}
+\begin{itemize}
+    \item $\Psi_{ref}$: $195.6 \pm 88.1$ hPa
+    \item $\Psi_{gyp}$: $187.5 \pm 76.2$ hPa
+    \item $\theta_{vol}$: $19.9 \pm 0.8$ \%
+    \item $T_{suelo}$: $15.2 \pm 7.0$ °C
+\end{itemize}
+\end{block}
+\end{columns}
+\end{frame}
+
+% ==================================================================
+\section{Lógica del Programa}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 5: LÓGICA - CARGA Y VALIDACIÓN
+% ------------------------------------------------------------------
+\begin{frame}[fragile]{3a. Lógica del Programa: Carga e Inspección}
+\begin{block}{Carga e inspección inicial (Ciclo FOR)}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+import pandas as pd
+import numpy as np
+
+# Carga del dataset corregido
+df = pd.read_csv('data/processed/dataset_corregido.csv',
+                 parse_dates=['Timestamp'],
+                 index_col='Timestamp')
+
+# Cobertura de sensores: ciclo for
+cols_ref = ['T42','T43','T44','T51','T52','T54']
+for col in cols_ref:
+    cob = df[col].notna().mean() * 100
+    print(f"{col}: {cob:.1f}%")
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{3b. Lógica del Programa: Validación e Imputación}
+\begin{block}{Validación con condicionales múltiples y ciclo WHILE}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+def validar_registro(psi, theta):
+    errores = []
+    # if / elif / else
+    if psi is None or np.isnan(psi): errores.append("PSI_NULO")
+    elif psi < 0: errores.append("PSI_NEGATIVO")
+    elif psi > 1500: errores.append("FUERA_RANGO")
+    
+    return "VALIDO" if not errores else "INVALIDO"
+
+# Ciclo while: imputacion iterativa temporal
+it = 0
+while df['psi_real'].isna().sum() > 0 and it < 5:
+    df['psi_real'] = df['psi_real'].interpolate(method='time', limit=3)
+    it += 1
+\end{lstlisting}
+\end{block}
+
+\vfill
+\begin{tcolorbox}[colback=SmartOrange!10,colframe=SmartOrange!50,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\textbf{Resultado:} 2\,494 registros validados · Tasa de calidad $>98\%$ · Imputación en $\leq 3$ iteraciones
+\end{tcolorbox}
+\end{frame}
+
+% ==================================================================
+\section{Comprensiones Python}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 6: LAS 3 COMPRENSIONES
+% ------------------------------------------------------------------
+\begin{frame}[fragile]{4a. Comprensiones Python (List y Dict)}
+\begin{exampleblock}{\textbf{1.} List Comprehension --- Filtrado dinámico}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+# Calcula media solo de sensores con datos > 95%
+promedios_ref = [
+    {'sensor': col, 'media': df[col].mean(), 
+     'cobertura': df[col].notna().mean() * 100}
+    for col in cols_psi_ref
+    if df[col].notna().mean() > 0.95     # FILTRO INTELIGENTE
+]  
+# Resultado: Lista de 6 diccionarios validados.
+\end{lstlisting}
+\end{exampleblock}
+
+\vfill
+\begin{block}{\textbf{2.} Dictionary Comprehension --- Evaluación de Semáforo $O(1)$}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+mapes = {'Gypsum1': 12.8, 'Gypsum2': 14.1, 'Gypsum3': 13.5}
+# Mapeo directo: sensor -> estado
+semaforo = {
+    sid: ('VERDE' if m <= 20 else 'AMARILLO' if m <= 35 else 'ROJO')
+    for sid, m in mapes.items()
+}
+# Resultado: {'Gypsum1': 'VERDE', 'Gypsum2': 'VERDE', ...}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{4b. Comprensiones Python (Set)}
+\begin{alertblock}{\textbf{3.} Set Comprehension --- Identificación de Estados Únicos}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+# Extrae el conjunto matematico de todos los estados que realmente 
+# ocurrieron en la serie temporal sin duplicados.
+estados = {
+    ('Humedo' if p<=100 else 'Optimo' if p<=300 else 
+     'Seco' if p<=400 else 'Critico')
+    for p in df['psi_real'].dropna()
+}
+# Resultado real en memoria: {'Humedo', 'Optimo', 'Seco'}
+# Nota: La extraccion automatica demostro que "Critico" 
+# jamas se registro.
+\end{lstlisting}
+\end{alertblock}
+\end{frame}
+
+% ==================================================================
+\section{Indicadores KPI}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 7: KPI COMPLETOS
+% ------------------------------------------------------------------
+\begin{frame}{3a. Indicadores de Desempeño (KPI) con Semáforo}
+\begin{table}
+\centering
+\small
+\begin{tabular}{@{}llcccl@{}}
+\toprule
+\textbf{KPI} & \textbf{Indicador} & \textbf{Fórmula} & \textbf{Resultado} & \textbf{Meta} & \textbf{Estado} \\
+\midrule
+KPI$_1$ & $\bar{\Psi}$ Promedio & $\frac{1}{N}\sum \Psi_i$ & \textbf{195.6} & $\leq 250$ & \cellcolor{SmartGreen!25}\semverde{\ding{52} VERDE} \\[6pt]
+
+KPI$_2$ & Error Gypsum & MAPE & \textbf{13.3\%} & $\leq 20\%$ & \cellcolor{SmartGreen!25}\semverde{\ding{52} VERDE} \\[6pt]
+
+KPI$_3$ & Zona Óptima & $\% (100<\Psi\leq 300)$ & \textbf{74.5\%} & $\geq 70\%$ & \cellcolor{SmartGreen!25}\semverde{\ding{52} VERDE} \\[6pt]
+
+KPI$_4$ & $P(\text{riego})_{MC}$ & Montecarlo ($>300$) & \textbf{10.4\%} & $< 50\%$ & \cellcolor{SmartGreen!25}\semverde{\ding{52} VERDE} \\[6pt]
+
+KPI$_5$ & Correlación & $r(\Psi_{ref},\,\Psi_{gyp})$ & \textbf{0.949} & $\geq 0.80$ & \cellcolor{SmartGreen!25}\semverde{\ding{52} VERDE} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]{3b. Desglose y Función de Evaluación}
+\begin{columns}[c]
+\column{0.48\textwidth}
+\begin{tcolorbox}[colback=SmartGreen!12,colframe=SmartGreen,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt,
+    title={\color{white}Distribución Hídrica Real}]
+\begin{itemize}
+    \item Húmedo ($\leq$100): 10.2\%
+    \item \textbf{Óptimo (100--300): 74.5\%}
+    \item Seco (300--400): 15.3\%
+    \item Crítico ($>$400): \textbf{0.0\%}
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=SmartLightBlue!12,colframe=SmartLightBlue,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt,
+    title={\color{white}Validación del Sensor Gypsum}]
+Regresión: $\Psi_{tens} = 0.987\,\Psi_{gyp} + 8.3$\\
+$r^2 = 0.901$ \quad $\rightarrow$ \textbf{Alternativa viable}
+\end{tcolorbox}
+
+\column{0.48\textwidth}
+\begin{tcolorbox}[colback=SmartOrange!12,colframe=SmartOrange,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt,
+    title={\color{white}Función de Evaluación Python}]
+\begin{lstlisting}[numbers=none,frame=none,backgroundcolor={\color{SmartOrange!8}},basicstyle=\ttfamily\small]
+def semaforo(val, meta,
+             modo='menor'):
+    if modo == 'menor':
+        ok = val <= meta
+    else:
+        ok = val >= meta
+        
+    return 'VERDE' if ok else 'ROJO'
+\end{lstlisting}
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+% ==================================================================
+\section{Programación Orientada a Objetos}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 8: POO - DIAGRAMA DE CLASES
+% ------------------------------------------------------------------
+\begin{frame}{5a. Arquitectura Orientada a Objetos (POO)}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\begin{tikzpicture}[
+    classstyle/.style={rectangle, rounded corners=4pt,
+        draw=SmartBlue, fill=SmartBlue!8,
+        minimum width=3.5cm, minimum height=0.8cm,
+        font=\normalsize\bfseries, text=SmartBlue},
+    childstyle/.style={rectangle, rounded corners=4pt,
+        draw=SmartGreen!70!black, fill=SmartGreen!10,
+        minimum width=3.0cm, minimum height=0.7cm,
+        font=\small, text=SmartGray},
+    arrow/.style={-Latex, thick, SmartBlue}
+]
+% Clase base
+\node[classstyle] (sensor) at (0,0)
+    {\texttt{Sensor (ABC)}};
+
+% Clases hijas
+\node[childstyle] (tens) at (-2.0,-2.0)
+    {\texttt{Tensiometro}};
+\node[childstyle] (resi) at (2.0,-2.0)
+    {\texttt{Resistivo}};
+
+% Flechas herencia
+\draw[arrow] (tens.north) -- (sensor.south west);
+\draw[arrow] (resi.north) -- (sensor.south east);
+
+% Clase Parcela
+\node[classstyle, fill=SmartOrange!10, draw=SmartOrange!70] (parcela)
+    at (0,-3.8) {\texttt{ParcelaExperimental}};
+
+% Lineas de composicion
+\draw[-Latex, dashed, SmartOrange!70] (sensor.south) -- (parcela.north)
+    node[midway,font=\footnotesize,right=2pt]{tiene $\rightarrow$};
+\end{tikzpicture}
+
+\column{0.45\textwidth}
+\begin{tcolorbox}[colback=SmartGreen!8,colframe=SmartGreen!50,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\textbf{Abstracción y Herencia:}
+\begin{itemize}
+    \item Clase base abstracta \texttt{Sensor}.
+    \item Las clases hijas heredan los métodos de validación, historial y función \texttt{semaforo()}.
+\end{itemize}
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+\begin{frame}{5b. Polimorfismo e Instanciación}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\begin{block}{Polimorfismo: método \texttt{leer()}}
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Clase} & \textbf{Entrada} & \textbf{Salida} \\
+\midrule
+\texttt{Tensiometro} & 300 hPa & 300.0 hPa \\
+\multicolumn{3}{l}{\small $\rightarrow$ Lectura directa, sin conversión} \\[4pt]
+\texttt{Resistivo} & 300 hPa & 303.5 hPa \\
+\multicolumn{3}{l}{\small $\rightarrow$ +Compensación de $T_{suelo}$} \\[4pt]
+\texttt{Capacitivo} & $\theta=0.30$ & 98.7 hPa \\
+\multicolumn{3}{l}{\small $\rightarrow$ Eq. Van Genuchten inverso} \\
+\bottomrule
+\end{tabular}
+\end{block}
+
+\column{0.45\textwidth}
+\begin{tcolorbox}[colback=SmartLightBlue!8,colframe=SmartLightBlue!50,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\textbf{Instanciación en la parcela:}\\
+\vspace{0.2cm}
+Se crearon instancias para los sensores reales del dataset:
+\begin{itemize}
+    \item \texttt{t42, t43, t44} (Tensiómetro)
+    \item \texttt{gyp1, gyp2} (Gypsum)
+    \item \texttt{cap1, cap2} (Capacitivo)
+    \item \texttt{parcela\_jki} (Parcela)
+\end{itemize}
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 9: POO - CÓDIGO CLAVE
+% ------------------------------------------------------------------
+\begin{frame}[fragile]{5c. Código POO (Clase Base)}
+\begin{exampleblock}{Clase base abstracta}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+from abc import ABC, abstractmethod
+
+class Sensor(ABC):
+    """Clase base para sensores."""
+    def __init__(self, id_sensor, ubicacion, profundidad_cm):
+        self.id_sensor = id_sensor
+        self.ubicacion = ubicacion
+        self.historial = []    # Herencia comun
+        self.estado    = 'ACTIVO'
+
+    @abstractmethod
+    def leer(self, valor_raw, temperatura=None):
+        pass  # Implementacion requerida (Polimorfismo)
+
+    def semaforo(self):
+        """Mismo algoritmo de evaluacion para TODAS las clases."""
+        if not self.historial:
+            return 'SIN_DATOS'
+        psi = self.historial[-1]['psi']
+        if psi <= 100: return 'HUMEDO'
+        if psi <= 300: return 'OPTIMO'
+        if psi <= 400: return 'SECO'
+        return 'CRITICO'
+\end{lstlisting}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{5d. Código POO (Clase Hija)}
+\begin{block}{Clase hija --- SensorResistivo (Gypsum)}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+class SensorResistivo(Sensor):
+    """Gypsum: implementa compensacion termica."""
+    TIPO = 'GYPSUM_RESISTIVO'
+    COEF_TEMP = 0.035
+
+    def __init__(self, id_sensor, ubicacion, prof_cm,
+                 coef_cal=1.0, offset_cal=0.0):
+        # Llamada al constructor padre
+        super().__init__(id_sensor, ubicacion, prof_cm)
+        self.coef_cal   = coef_cal
+        self.offset_cal = offset_cal
+
+    def leer(self, valor_raw, temperatura=None):
+        # POLIMORFISMO: Logica especifica para Gypsum
+        factor = 1.0
+        if temperatura is not None:
+            factor += self.COEF_TEMP * (temperatura - 20.0)
+            
+        psi_calc = (valor_raw * self.coef_cal + self.offset_cal) * factor
+        return float(max(0, psi_calc))
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+% ==================================================================
+\section{Simulación de Montecarlo}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 10: MONTECARLO - CONCEPTO Y CÓDIGO
+% ------------------------------------------------------------------
+\begin{frame}[fragile]{4a. Simulación de Montecarlo (Código)}
+\begin{columns}[c]
+\column{0.55\textwidth}
+\begin{block}{Función de Simulación}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+def simulacion_mc_riego(
+        psi_media, psi_std,
+        n_iter=10000,
+        umbral=300.0, semilla=42):
+        
+    rng = np.random.default_rng(semilla)
+    psi_sim = rng.normal(
+        loc=psi_media,
+        scale=psi_std,
+        size=n_iter)
+        
+    p_riego = np.mean(psi_sim > umbral) * 100
+    
+    return p_riego
+\end{lstlisting}
+\end{block}
+
+\column{0.45\textwidth}
+\begin{alertblock}{Modelo Estadístico}
+$$\Psi_{sim} = \bar{\Psi}_{obs} + \epsilon$$
+$$\epsilon \sim \mathcal{N}(0,\sigma_{MC}^2)$$
+\vspace{0.3cm}\\
+\textbf{Objetivo:}\\
+Cuantificar probabilidad de que el estrés hídrico supere el umbral crítico ($300\text{ hPa}$) debido a la incertidumbre.
+\end{alertblock}
+\end{columns}
+\end{frame}
+
+\begin{frame}{4b. Simulación de Montecarlo (Resultados)}
+\begin{exampleblock}{Resultados por Escenario (10,000 iteraciones)}
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Escenario temporal} & \textbf{$P$(riego)} & \textbf{IC 95\%} & \textbf{Acción Sugerida} \\
+\midrule
+Mayo 2016 & \textbf{36.2\%} & [158, 399] & \semamarillo{MONITOREAR} \\[4pt]
+Junio 2016 & \textbf{0.2\%} & [26, 246] & \semverde{NO REGAR} \\[4pt]
+Julio 2016 & \textbf{0.0\%} & [84, 198] & \semverde{NO REGAR} \\[4pt]
+\midrule
+\textbf{Período Completo} & \textbf{10.0\%} & \textbf{[16, 362]} & \semverde{\textbf{NO REGAR}} \\
+\bottomrule
+\end{tabular}
+\end{exampleblock}
+
+\vfill
+
+\begin{tcolorbox}[colback=SmartGreen!10,colframe=SmartGreen!50,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\centering
+\textbf{Convergencia:} El modelo se estabiliza a partir de las $1,000$ iteraciones.
+\end{tcolorbox}
+\end{frame}
+
+% ==================================================================
+\section{Resultados y Visualizaciones}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 11: TABLERO DE CONTROL
+% ------------------------------------------------------------------
+\begin{frame}{8. Tablero de Control SmartRoot}
+
+\begin{center}
+\includegraphics[width=0.88\textwidth,
+    height=0.72\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/05_tablero_control_completo.png}
+\end{center}
+
+\vspace{-4pt}
+{\footnotesize\centering
+\textbf{Fig. 1:} Panel de control integrado. \textit{Fila superior:} KPI$_1$--KPI$_3$ con semáforo verde.
+\textit{Centro:} Serie temporal $\Psi$ con zona óptima sombreada y distribución de estados hídricos.
+\textit{Fila inferior:} KPI mensual, Montecarlo del período completo y validación Gypsum--Tensiómetro.
+}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 12: HISTOGRAMAS MONTECARLO
+% ------------------------------------------------------------------
+\begin{frame}{8b. Simulación de Montecarlo --- Distribuciones por Escenario}
+
+\begin{center}
+\includegraphics[width=0.88\textwidth,
+    height=0.68\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/04_mc_histogramas_escenarios.png}
+\end{center}
+
+\vspace{-4pt}
+\begin{columns}[t]
+\column{0.5\textwidth}
+{\footnotesize
+\textbf{Mayo:} distribución centrada en 279~hPa.
+Cola derecha $>300$~hPa: $P=36.2\%$ → \semamarillo{MONITOREAR}
+}
+\column{0.5\textwidth}
+{\footnotesize
+\textbf{Junio y Julio:} completamente alejados del umbral.
+$P(riego) \approx 0\%$ → \semverde{NO REGAR}
+}
+\end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 13: SERIE TEMPORAL Y CORRELACIONES
+% ------------------------------------------------------------------
+\begin{frame}{8c. Serie Temporal y Análisis de Correlaciones}
+
+\begin{columns}[t]
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth,
+    height=0.55\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/04_mc_serie_temporal.png}
+\end{center}
+{\footnotesize \textbf{Convergencia MC:} $\bar{\Psi}_{MC}$ se estabiliza en $N\approx1\,000$ iteraciones.
+Panel inferior: $P(\text{riego})$ con clasificación semáforo en tiempo real.}
+
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth,
+    height=0.55\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/01_correlaciones.png}
+\end{center}
+{\footnotesize \textbf{Correlación $r=0.949$:} validación del sensor Gypsum.
+\textit{Derecha:} Curva de retención Van Genuchten ($\theta_s=0.38$, $\alpha=0.034$, $n=1.37$).}
+\end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 14: DIAGRAMA DE FLUJO
+% ------------------------------------------------------------------
+\begin{frame}{8d. Diagrama de Flujo del Sistema SmartRoot}
+
+\begin{columns}[c]
+\column{0.55\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth,
+    height=0.7\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/05_diagrama_flujo.png}
+\end{center}
+
+\column{0.45\textwidth}
+\begin{block}{Pipeline del sistema}
+\begin{enumerate}\footnotesize
+    \item \textbf{HARDWARE:} Sensor Gypsum (ADC + LoRa)
+    \item \textbf{NB01 EDA:} Carga · Validación · NaN
+    \item \textbf{NB02 KPI:} Indicadores + semáforo
+    \item \textbf{NB03 POO:} Clases Sensor/Parcela
+    \item \textbf{NB04 MC:} Montecarlo 10\,000 iter.
+    \item \textbf{DECISIÓN:}
+        \begin{itemize}\scriptsize
+            \item[\semverde{\ding{52}}] $P<20\%$ → No regar
+            \item[\semamarillo{$\mathbf{\sim}$}] $20\leq P<50\%$ → Monitorear
+            \item[\semrojo{\textbf{!}}] $P\geq 50\%$ → Regar hoy
+            \item[\semrojo{\ding{56}}] $P\geq 75\%$ → Urgente
+        \end{itemize}
+\end{enumerate}
+\end{block}
+
+\vspace{4pt}
+\begin{tcolorbox}[colback=SmartGreen!8,colframe=SmartGreen!50,
+    arc=3pt,left=4pt,right=4pt,top=2pt,bottom=2pt]
+\footnotesize \textbf{Resultado del período:}\\
+$P(\text{riego})=10\%$ → \semverde{NO REGAR}\\
+Cero eventos críticos detectados
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+% ==================================================================
+\section{Conclusiones}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 15: CONCLUSIONES
+% ------------------------------------------------------------------
+\begin{frame}{9. Conclusiones}
+
+\begin{columns}[t]
+\column{0.5\textwidth}
+
+\begin{exampleblock}{\tick\ Resultados técnicos}
+\begin{itemize}\footnotesize
+    \item \textbf{5 KPI en verde:} $\bar{\Psi}=195.6$~hPa, MAPE$=13.3\%$, zona óptima$=74.5\%$, $r=0.949$, $P(\text{riego})=10\%$
+    \item \textbf{Gypsum validado:} sensor de bajo costo con $r^2=0.90$ respecto al tensiómetro de referencia. \textit{Viable comercialmente}
+    \item \textbf{Montecarlo:} mayo 2016 requirió alerta amarilla ($P=36.2\%$); imposible de detectar con umbrales fijos
+\end{itemize}
+\end{exampleblock}
+
+\begin{block}{\tick\ Valor del Montecarlo}
+\footnotesize
+La simulación estocástica permite:\\
+\textbf{cuantificar el riesgo} en lugar de solo\\
+detectarlo, diferencia clave entre\\
+sistemas expertos y simples alertas
+\end{block}
+
+\column{0.5\textwidth}
+
+\begin{block}{\tick\ Python vs. herramientas estáticas}
+\begin{itemize}\footnotesize
+    \item \textbf{Reproducibilidad:} semilla fija garantiza resultados idénticos
+    \item \textbf{Velocidad:} 2\,494 registros procesados vectorialmente en $<1$~s
+    \item \textbf{Escalabilidad:} nuevos sensores = nueva clase hija, sin reescribir lógica central
+    \item \textbf{Trazabilidad:} control de versiones Git + notebooks documentados
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{\tick\ Comprensiones Python}
+\footnotesize
+Las 3 comprensiones redujeron el código\\
+en $\approx60\%$ respecto a ciclos equivalentes,\\
+manteniendo legibilidad y eficiencia $O(n)$
+\end{alertblock}
+
+\end{columns}
+\end{frame}
+
+% ==================================================================
+\section{Evolución del Proyecto}
+% ==================================================================
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 16: TRABAJO FUTURO
+% ------------------------------------------------------------------
+\begin{frame}{10. Posible Evolución del Proyecto}
+
+\begin{columns}[t]
+\column{0.33\textwidth}
+\begin{block}{\small\faRobot\ Machine Learning}
+\footnotesize
+Reemplazar el modelo estático de Van Genuchten por un \textbf{XGBoost o LSTM} que prediga $\Psi(t+24h)$ usando historial + temperatura + precipitación + ET$_0$\\[4pt]
+\textbf{Impacto:} Planificación de riego con 24--72~h de anticipación
+\end{block}
+
+\column{0.33\textwidth}
+\begin{exampleblock}{\small\faCloud\ IoT + Dashboard Web}
+\footnotesize
+Conectar SmartRoot a sensores inalámbricos \textbf{ESP32 / LoRaWAN} mediante API MQTT y desplegar el tablero en \textbf{Streamlit} con notificaciones automáticas SMS/email al superar umbral amarillo\\[4pt]
+\textbf{Impacto:} Decisiones en tiempo real desde el móvil
+\end{exampleblock}
+
+\column{0.33\textwidth}
+\begin{alertblock}{\small\faSeedling\ Multi-parcela}
+\footnotesize
+Implementar clase \texttt{SistemaMultiParcela} que gestione redes distribuidas geoespacialmente, priorizando órdenes de riego por criticidad y distancia logística con \textbf{algoritmos de optimización}\\[4pt]
+\textbf{Impacto:} Escala regional / empresarial
+\end{alertblock}
+\end{columns}
+
+\vspace{8pt}
+\begin{tcolorbox}[colback=SmartBlue!8,colframe=SmartBlue!40,
+    arc=4pt,left=8pt,right=8pt,top=4pt,bottom=4pt]
+\centering\small
+\textbf{Visión comercial SmartRoot 2.0:}
+Plataforma SaaS de agricultura de precisión con toma de decisiones autónoma,
+integrando IA, IoT y simulación estocástica en un único ecosistema Python reproducible
+\end{tcolorbox}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 17: RESUMEN EJECUTIVO
+% ------------------------------------------------------------------
+\begin{frame}{Resumen Ejecutivo --- Panel de Resultados}
+
+\begin{columns}[t]
+\column{0.5\textwidth}
+\begin{block}{Dataset y procesamiento}
+\begin{tabular}{@{}ll@{}}
+\footnotesize Registros totales & \footnotesize 2\,494 \\
+\footnotesize Período & \footnotesize May.--Jul. 2016 \\
+\footnotesize Resolución & \footnotesize 30 minutos \\
+\footnotesize Sensores modelados & \footnotesize 7 objetos POO \\
+\footnotesize Tasa de calidad & \footnotesize $>98\%$ \\
+\footnotesize Notebooks & \footnotesize NB01--NB05 \\
+\end{tabular}
+\end{block}
+
+\vspace{4pt}
+\begin{block}{Componentes implementados}
+\begin{tabular}{@{}lc@{}}
+\footnotesize Programación básica & \footnotesize \tick \\
+\footnotesize 3 comprensiones & \footnotesize \tick \\
+\footnotesize 3 funciones & \footnotesize \tick \\
+\footnotesize 5 KPI con semáforo & \footnotesize \tick \\
+\footnotesize POO + herencia + polim. & \footnotesize \tick \\
+\footnotesize Montecarlo 10\,000 iter. & \footnotesize \tick \\
+\footnotesize Tablero de control & \footnotesize \tick \\
+\end{tabular}
+\end{block}
+
+\column{0.5\textwidth}
+\begin{exampleblock}{KPI globales del período}
+\centering
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\footnotesize\textbf{Indicador} & \footnotesize\textbf{Valor} & \footnotesize\textbf{Estado} \\
+\midrule
+\footnotesize$\bar{\Psi}$ & \footnotesize195.6 hPa & \semverde{\footnotesize VERDE} \\
+\footnotesize MAPE & \footnotesize13.3\% & \semverde{\footnotesize VERDE} \\
+\footnotesize Zona óptima & \footnotesize74.5\% & \semverde{\footnotesize VERDE} \\
+\footnotesize$P$(riego) MC & \footnotesize10.4\% & \semverde{\footnotesize VERDE} \\
+\footnotesize$r$ Pearson & \footnotesize0.949 & \semverde{\footnotesize VERDE} \\
+\bottomrule
+\end{tabular}
+\end{exampleblock}
+
+\vspace{4pt}
+\begin{tcolorbox}[colback=SmartGreen!12,colframe=SmartGreen,
+    arc=4pt,left=6pt,right=6pt,top=4pt,bottom=4pt]
+\centering\footnotesize
+\textbf{Interpretación ejecutiva}\\
+\semverde{Los 5 KPI en estado VERDE}\\
+Manejo hídrico \textbf{excelente} en el período\\
+$\rightarrow$ SmartRoot: \textbf{cero riegos urgentes} requeridos
+\end{tcolorbox}
+\end{columns}
+\end{frame}
+
+% ------------------------------------------------------------------
+% DIAPOSITIVA 18: CIERRE
+% ------------------------------------------------------------------
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+    \fill[SmartBlue] (current page.north west) rectangle
+        ([yshift=-0.45\paperheight]current page.north east);
+    \fill[SmartGreen] (current page.south west) rectangle
+        ([yshift=0.08\paperheight]current page.south east);
+\end{tikzpicture}
+
+\vspace{0.4cm}
+\begin{center}
+{\color{white}\Huge\bfseries ¡Muchas Gracias!}\\[10pt]
+{\color{white!85}\large Proyecto SmartRoot}\\[4pt]
+{\color{white!70}\normalsize Sistema Inteligente de Decisión de Riego}\\[4pt]
+{\color{white!70}\normalsize Programación Científica en Python}
+
+\vspace{0.6cm}
+\begin{tcolorbox}[colback=white!15!SmartBlue,colframe=white!30,
+    arc=6pt,left=10pt,right=10pt,top=6pt,bottom=6pt,
+    width=0.7\textwidth]
+\centering
+{\color{white}\large\bfseries ¿Preguntas o comentarios?}\\[6pt]
+{\color{white!85}\small
+Dataset: Jackisch et al. (2020) · JKI Braunschweig\\
+2\,494 registros · Mayo--Julio 2016\\
+\textbf{Todos los KPI: \textcolor{SmartGreen!70!white}{VERDE}}}
+\end{tcolorbox}
+
+\vspace{0.5cm}
+{\color{white!80}\small [Nombre del Estudiante] · Miguel A. Becerra Ph.D.}\\
+{\color{white!70}\small Maestría ACI · Fundamentos de Programación · 2026}
+\end{center}
+\end{frame}
+
+% ============================================================
+% DIAPOSITIVAS ADICIONALES (BACKUP / PREGUNTAS)
+% ============================================================
+
+\appendix
+
+\begin{frame}[noframenumbering]{Backup: Modelo Van Genuchten implementado}
+\begin{columns}[t]
+\column{0.5\textwidth}
+\begin{block}{Ecuación implementada (clase \texttt{SensorCapacitivo})}
+
+$$\theta(\Psi) = \theta_r + \frac{\theta_s - \theta_r}{\left[1 + (\alpha|\Psi|)^n\right]^{1-1/n}}$$
+
+\footnotesize\textbf{Parámetros suelo JKI:}\\
+$\theta_r = 0.050$ · $\theta_s = 0.380$\\
+$\alpha = 0.034$~cm$^{-1}$ · $n = 1.370$\\[4pt]
+\textbf{Inversión analítica} para convertir\\
+$\theta_{medido} \rightarrow \Psi_{estimado}$ (hPa)
+\end{block}
+
+\column{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth,
+    height=0.5\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/01_correlaciones.png}
+\end{center}
+{\footnotesize\centering Panel derecho: curva de retención aplicada}
+\end{columns}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Backup: Distribución de frecuencias de variables}
+\begin{center}
+\includegraphics[width=0.88\textwidth,
+    height=0.72\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/01_histogramas.png}
+\end{center}
+{\footnotesize\centering Histogramas de $\Psi_{ref}$, $\Psi_{gyp}$, $\theta$ y $T_{suelo}$ con media, mediana y densidad estimada (KDE).}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Backup: Patrón de disponibilidad de datos}
+\begin{center}
+\includegraphics[width=0.88\textwidth,
+    height=0.62\textheight,
+    keepaspectratio]%
+    {../Outputs/figuras/01_patron_nan.png}
+\end{center}
+\vspace{4pt}
+{\footnotesize\centering
+\textbf{Verde:} dato disponible. \textbf{Rojo:} dato faltante.
+Nota: Gypsum tiene brecha central (registros 1000--3600) detectada automáticamente por SmartRoot.
+Sensores capacitivos y de temperatura tienen cobertura $\approx100\%$.}
+\end{frame}
+
+\end{document}

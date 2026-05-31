@@ -1,0 +1,31 @@
+\frametitle{4a. Simulación de Montecarlo (Código)}
+\begin{columns}[c]
+\column{0.55\textwidth}
+\begin{block}{Función de Simulación}
+\begin{lstlisting}[numbers=none,frame=none,basicstyle=\ttfamily\small]
+def simulacion_mc_riego(
+        psi_media, psi_std,
+        n_iter=10000,
+        umbral=300.0, semilla=42):
+
+    rng = np.random.default_rng(semilla)
+    psi_sim = rng.normal(
+        loc=psi_media,
+        scale=psi_std,
+        size=n_iter)
+
+    p_riego = np.mean(psi_sim > umbral) * 100
+
+    return p_riego
+\end{lstlisting}
+\end{block}
+
+\column{0.45\textwidth}
+\begin{alertblock}{Modelo Estadístico}
+$$\Psi_{sim} = \bar{\Psi}_{obs} + \epsilon$$
+$$\epsilon \sim \mathcal{N}(0,\sigma_{MC}^2)$$
+\vspace{0.3cm}\\
+\textbf{Objetivo:}\\
+Cuantificar probabilidad de que el estrés hídrico supere el umbral crítico ($300\text{ hPa}$) debido a la incertidumbre.
+\end{alertblock}
+\end{columns}

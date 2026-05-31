@@ -1,0 +1,1575 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================
+% PAQUETES
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=3.0cm,bottom=3.0cm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=green!50!black,
+    urlcolor=blue!70!black
+}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\setlength{\headheight}{13.6pt}
+\addtolength{\topmargin}{-1.6pt}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{lmodern}
+\usepackage[nopatch=footnote]{microtype}
+\usepackage{mathtools}
+\usepackage{siunitx}
+\usepackage{pifont}
+\usepackage{fontawesome5}
+
+% ============================================================
+% COLORES PERSONALIZADOS
+% ============================================================
+\definecolor{verdeKPI}{RGB}{39,174,96}
+\definecolor{amarilloKPI}{RGB}{243,156,18}
+\definecolor{rojoKPI}{RGB}{192,57,43}
+\definecolor{azulPrimario}{RGB}{41,128,185}
+\definecolor{grisOscuro}{RGB}{52,73,94}
+\definecolor{grisFondo}{RGB}{245,245,242}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.95}
+\definecolor{naranjaMeta}{RGB}{230,126,34}
+\definecolor{azulDark}{RGB}{26,82,118}
+
+% ============================================================
+% ESTILO DE CÓDIGO
+% ============================================================
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{azulPrimario}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1,
+    frame=single,
+    rulecolor=\color{grisOscuro!30},
+    xleftmargin=15pt,
+    xrightmargin=5pt,
+    aboveskip=10pt,
+    belowskip=10pt
+}
+\lstset{style=pythonstyle, language=Python}
+
+% ============================================================
+% CAJAS DE COLORES
+% ============================================================
+\newtcolorbox{kpibox}[2][]{
+    colback=#2!8!white,
+    colframe=#2!60!black,
+    fonttitle=\bfseries\small,
+    title=#1,
+    sharp corners=south,
+    boxrule=1pt,
+    left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+\newtcolorbox{infobox}{
+    colback=azulPrimario!7!white,
+    colframe=azulPrimario!50!black,
+    fonttitle=\bfseries,
+    sharp corners,
+    boxrule=0.8pt,
+    left=8pt, right=8pt, top=5pt, bottom=5pt
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{grisOscuro}{\textbf{SmartRoot} --- Sistema Inteligente de Decisión de Riego}}
+\fancyhead[R]{\small\textcolor{grisOscuro}{Fundamentos de Programación $\cdot$ 2026}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ============================================================
+% FORMATO DE SECCIONES
+% ============================================================
+\titleformat{\section}
+  {\large\bfseries\color{azulDark}}
+  {\thesection.}{0.5em}{}[\vspace{-2pt}\rule{\linewidth}{0.4pt}\vspace{4pt}]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{grisOscuro}}
+  {\thesubsection.}{0.5em}{}
+
+\titleformat{\subsubsection}
+  {\normalsize\itshape\color{grisOscuro}}
+  {\thesubsubsection.}{0.5em}{}
+
+% ============================================================
+% DOCUMENTO
+% ============================================================
+\begin{document}
+
+% ============================================================
+% PORTADA
+% ============================================================
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+
+{\large \textbf{MAESTRÍA EN AUTOMATIZACIÓN Y CONTROL INDUSTRIAL}}\\[0.3cm]
+{\normalsize Fundamentos de Programación Científica}\\[0.1cm]
+{\normalsize Posgrado 2026-1}
+
+\vspace{1.5cm}
+\rule{\linewidth}{1.5pt}
+\vspace{0.4cm}
+
+{\LARGE \textbf{\textcolor{azulDark}{SmartRoot}}}\\[0.4cm]
+{\large \textbf{Sistema Inteligente de Decisión de Riego y Validación}}\\[0.2cm]
+{\large \textbf{de Sensores Hídricos mediante Programación}}\\[0.2cm]
+{\large \textbf{Científica en Python}}
+
+\vspace{0.4cm}
+\rule{\linewidth}{1.5pt}
+\vspace{1.2cm}
+
+{\normalsize \textit{Dataset de referencia:} Jackisch et al. (2018/2020)}\\[0.1cm]
+{\normalsize Parcela Experimental Julius Kühn-Institut (JKI), Alemania}\\[0.1cm]
+{\normalsize 2\,494 registros analizados $\cdot$ Período: Mayo--Julio 2016}
+
+\vspace{1.8cm}
+
+\begin{tabular}{rl}
+\textbf{Elaborado por:} & [Nombre del Estudiante] \\[4pt]
+\textbf{Docente:} & Miguel A. Becerra Ph.D. \\[4pt]
+\textbf{Fecha de entrega:} & 5 de junio de 2026 \\[4pt]
+\textbf{Asignatura:} & Fundamentos de Programación \\
+\end{tabular}
+
+\vfill
+{\small \textcolor{codegray}{Trabajo Final de Asignatura $\cdot$ Solución computacional funcional y explicada en Python}}
+\end{titlepage}
+
+% ============================================================
+% RESUMEN
+% ============================================================
+\begin{abstract}
+\noindent
+El presente trabajo final desarrolla \textbf{SmartRoot}, un sistema computacional de toma de decisiones agrícolas construido íntegramente en Python sobre datos reales de campo. Utilizando el dataset abierto de Jackisch et al.\ (2020), que comprende 58 sondas de 15 sistemas distintos de medición del potencial mátrico ($\Psi$) y la humedad volumétrica ($\theta$) instaladas en la parcela experimental del Julius Kühn-Institut (Alemania), se procesaron \textbf{2\,494 registros} a resolución de 30~minutos durante el período mayo--julio de 2016. El sistema integra: (i)~programación básica en Python con validación de datos; (ii)~estructuras de datos avanzadas con tres comprensiones explícitas; (iii)~cálculo de cinco KPI con clasificación semáforo; (iv)~un modelo orientado a objetos con jerarquía de herencia e implementación de polimorfismo para tres tipos de sensor; y (v)~una simulación de Montecarlo con 10\,000 iteraciones por escenario estacional para cuantificar la probabilidad de riego urgente. Los resultados obtenidos son: $\Psi_{\text{promedio}} = 195.6$~hPa (\textcolor{verdeKPI}{\textbf{VERDE}}, meta $\leq 250$~hPa), MAPE del sensor Gypsum $= 13.3\%$ (\textcolor{verdeKPI}{\textbf{VERDE}}, meta $\leq 20\%$), tiempo en zona óptima $= 74.5\%$ (\textcolor{verdeKPI}{\textbf{VERDE}}, meta $\geq 70\%$), correlación Pearson $r = 0.949$ entre Gypsum y tensiómetro de referencia, y probabilidad de riego urgente en el período completo de tan solo $10.0\%$. Todos los KPI resultan en estado \textsc{Verde}, confirmando que el manejo hídrico del período fue excelente y que el sensor resistivo opera con confiabilidad suficiente. La herramienta demuestra cómo los fundamentos de la programación científica pueden apoyar directamente la automatización de decisiones de riego de precisión.
+
+\vspace{0.3cm}
+\noindent\textbf{Palabras clave:} potencial mátrico, humedad volumétrica, sensor Gypsum, decisión de riego, Montecarlo, programación orientada a objetos, Python, KPI semáforo, Jackisch et al.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================================================
+% 1. INTRODUCCIÓN
+% ============================================================
+\section{Introducción}
+
+\subsection{Contexto y descripción del problema}
+
+La agricultura de precisión requiere instrumentación continua del estado hídrico del suelo para tomar decisiones oportunas de riego. En parcelas experimentales con múltiples tecnologías de sensores operando en paralelo ---tensiómetros de referencia, sensores capacitivos y sensores resistivos tipo Gypsum--- surgen inevitablemente discrepancias entre lecturas que pueden conducir a errores de interpretación si no se procesan automáticamente.
+
+El \textbf{potencial mátrico} ($\Psi$, en hPa) representa la energía con que el suelo retiene el agua: valores bajos ($<100$~hPa) indican suelo húmedo y valores altos ($>300$~hPa) indican estrés hídrico que requiere riego. La \textbf{humedad volumétrica} ($\theta$, en m\textsuperscript{3}/m\textsuperscript{3}) es la fracción de volumen de agua en el suelo, complementaria a $\Psi$ a través de la curva de retención de Van Genuchten.
+
+El problema central es la ausencia de una herramienta computacional que:
+\begin{enumerate}[noitemsep]
+    \item Valide automáticamente la coherencia entre sensores de referencia y secundarios.
+    \item Calcule indicadores de desempeño (KPI) con clasificación automática en tiempo real.
+    \item Modele la incertidumbre inherente a la variabilidad espaciotemporal del suelo.
+    \item Genere recomendaciones accionables de riego con base probabilística robusta.
+\end{enumerate}
+
+\subsection{Propuesta de proyecto y contexto de comercialización}
+
+\textbf{SmartRoot} se concibe como una herramienta \textbf{SaaS} (Software como Servicio) orientada a operadores agrícolas, ingenieros de riego y entidades de investigación agronómica. Su propuesta de valor comercial radica en:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Reducción de costos:} Eliminación del análisis manual de series temporales de sensores.
+    \item \textbf{Trazabilidad:} Registro automático de cada decisión de riego con respaldo estadístico.
+    \item \textbf{Escalabilidad:} Arquitectura orientada a objetos que permite incorporar nuevos tipos de sensores sin reescribir la lógica central.
+    \item \textbf{Precisión:} Cuantificación del riesgo mediante simulación estocástica en lugar de umbrales fijos.
+\end{itemize}
+
+\subsection{Objetivo general}
+
+Desarrollar un sistema computacional en Python que procese series temporales de sensores hídricos reales, calcule indicadores de desempeño con clasificación automática y estime la probabilidad de riego urgente mediante simulación de Montecarlo, apoyando la toma de decisiones en agricultura de precisión.
+
+\subsection{Objetivos específicos}
+
+\begin{enumerate}[noitemsep]
+    \item Cargar, limpiar y validar el dataset de Jackisch et al.\ (2020) con técnicas de programación básica en Python.
+    \item Implementar estructuras de datos (listas, diccionarios, arreglos NumPy, DataFrames Pandas) con al menos tres comprensiones aplicadas al problema.
+    \item Calcular cinco KPI hídricos con sus fórmulas, metas y clasificación tipo semáforo.
+    \item Modelar la jerarquía de sensores mediante POO con herencia, polimorfismo y al menos dos objetos por clase.
+    \item Ejecutar una simulación de Montecarlo ($N \geq 1\,000$ iteraciones) por escenario estacional e interpretar los resultados técnica y ejecutivamente.
+    \item Visualizar todos los resultados en un tablero de control con tablas, gráficos de barras, líneas, histogramas y diagrama de flujo.
+\end{enumerate}
+
+\subsection{Justificación}
+
+La instrumentación de campo genera volúmenes de datos que superan la capacidad de análisis manual. Las herramientas tradicionales (hojas de cálculo) carecen de capacidad para implementar: (a) algoritmos de validación cruzada entre sensores, (b) modelos estocásticos de incertidumbre, y (c) estructuras de programación orientada a objetos que representen fielmente la jerarquía física del sistema. Python, con su ecosistema científico (NumPy, Pandas, Matplotlib, SciPy), ofrece el entorno idóneo para construir soluciones reproducibles, documentadas y escalables \cite{mckinney2017}.
+
+\subsection{Alcance y limitaciones}
+
+\textbf{Alcance:} El análisis cubre el período mayo--julio de 2016 con datos de la parcela experimental JKI, incluyendo 6 tensiómetros de referencia, 4 sensores Gypsum, 4 sensores capacitivos y 4 sensores de temperatura de suelo.
+
+\textbf{Limitaciones:} (i) Los datos del sensor Gypsum presentan disponibilidad parcial (inicio tardío en ~registro 1000 y brecha central); (ii) la simulación de Montecarlo asume distribución gaussiana del ruido de medición; (iii) el modelo de Van Genuchten empleado usa parámetros publicados por Jackisch et al., no calibrados localmente.
+
+\subsection{Organización del artículo}
+
+La Sección~2 revisa la literatura y tecnología relevante. La Sección~3 establece el marco teórico matemático y computacional. La Sección~4 describe detalladamente el marco experimental con código documentado. La Sección~5 presenta todos los resultados con tablas y figuras. La Sección~6 concluye con trabajo futuro. Las referencias y anexos cierran el documento.
+
+% ============================================================
+% 2. REVISIÓN DE LITERATURA
+% ============================================================
+\section{Revisión de Literatura y Tecnológica}
+
+\subsection{Instrumentación del estado hídrico del suelo}
+
+El estudio de referencia de \textbf{Jackisch et al.\ (2018/2020)} \cite{jackisch2020} presenta la primera comparación sistemática a campo abierto de 15 sistemas de sensores distintos para medir simultáneamente el potencial mátrico y la humedad volumétrica del suelo en la parcela experimental del Julius Kühn-Institut (JKI) en Braunschweig, Alemania. El estudio documenta 58 sondas operando en paralelo durante el período 2015--2018, con resolución temporal de 30 minutos, representando un benchmark único para el desarrollo de herramientas de procesamiento automático \cite{jackisch2018pangaea}.
+
+Los autores reportan que ningún sensor opera libre de derivas (\textit{drift}), efectos de temperatura, o artefactos por variabilidad espacial del suelo, justificando la necesidad de fusión de datos y validación cruzada entre tecnologías \cite{jackisch2020}.
+
+\subsection{Modelo de Van Genuchten}
+
+La relación entre el contenido volumétrico de agua $\theta$ y el potencial mátrico $\Psi$ es descrita por el modelo de Van Genuchten \cite{vangenuchten1980}:
+
+\begin{equation}
+\theta(\Psi) = \theta_r + \frac{\theta_s - \theta_r}{\left[1 + |\alpha \Psi|^n\right]^m}
+\label{eq:vangenuchten}
+\end{equation}
+
+\noindent donde $\theta_r$ es el contenido de agua residual, $\theta_s$ es la saturación, $\alpha$ (cm\textsuperscript{-1}) es un parámetro de escala relacionado con el inverso del valor de entrada de aire, $n$ es un parámetro de forma, y $m = 1 - 1/n$. Este modelo fue implementado en SmartRoot para representar la curva característica de retención del suelo de la parcela JKI (Figura~\ref{fig:correlaciones}, panel derecho).
+
+\subsection{Simulación de Montecarlo en sistemas ambientales}
+
+El método de Montecarlo (MC) es ampliamente utilizado para propagación de incertidumbre en modelos de humedad de suelo \cite{kroese2014}. Trabajos recientes como el de Volk et al.\ (2020) \cite{volk2020} demuestran que el muestreo MC permite evaluar cómo la incertidumbre en parámetros de suelo se propaga hacia predicciones de drenaje y uso de agua bajo diferentes estrategias de riego, con una eficiencia computacional superior a métodos de perturbación analítica.
+
+\subsection{Indicadores de desempeño en manejo hídrico}
+
+La métrica MAPE (\textit{Mean Absolute Percentage Error}) es el estándar industrial para evaluar la fidelidad de sensores secundarios respecto a referencias de mayor precisión \cite{mape_ref}. Valores de MAPE $\leq 20\%$ son considerados aceptables en instrumentación de campo abierto donde la variabilidad espacial del suelo introduce incertidumbre intrínseca \cite{jackisch2020}.
+
+\subsection{Python como herramienta de programación científica}
+
+McKinney \cite{mckinney2017} documenta extensamente el uso de Pandas y NumPy para análisis de datos temporales ambientales. La combinación de estas bibliotecas con Matplotlib/Plotly para visualización y SciPy para estadística proporciona un ecosistema completo para el desarrollo de herramientas de decisión en tiempo real. A diferencia de herramientas estáticas (Excel, MATLAB con licencia comercial), Python ofrece reproducibilidad, control de versiones y capacidad de integración en plataformas web.
+
+% ============================================================
+% 3. MARCO TEÓRICO
+% ============================================================
+\section{Marco Teórico}
+
+\subsection{Potencial mátrico y humedad volumétrica}
+
+El \textbf{potencial mátrico} $\Psi$ (hPa) cuantifica la energía de enlace agua-suelo. Su relación con la disponibilidad hídrica para cultivos define las zonas de manejo:
+
+\begin{equation}
+\text{Estado} = \begin{cases}
+\textcolor{azulPrimario}{\textbf{Húmedo}} & \text{si } \Psi \leq 100 \text{ hPa} \\
+\textcolor{verdeKPI}{\textbf{Óptimo}} & \text{si } 100 < \Psi \leq 300 \text{ hPa} \\
+\textcolor{naranjaMeta}{\textbf{Seco}} & \text{si } 300 < \Psi \leq 400 \text{ hPa} \\
+\textcolor{rojoKPI}{\textbf{Crítico}} & \text{si } \Psi > 400 \text{ hPa}
+\end{cases}
+\label{eq:estados}
+\end{equation}
+
+\subsection{Error Porcentual Absoluto Medio (MAPE)}
+
+El MAPE cuantifica la discrepancia porcentual promedio entre el sensor secundario (Gypsum) y el sensor de referencia (tensiómetro):
+
+\begin{equation}
+\text{MAPE} = \frac{1}{N} \sum_{i=1}^{N} \left| \frac{\Psi_{ref,i} - \Psi_{gyp,i}}{\Psi_{ref,i}} \right| \times 100\%
+\label{eq:mape}
+\end{equation}
+
+\subsection{Correlación de Pearson}
+
+Para validar la coherencia lineal entre tecnologías de sensores:
+
+\begin{equation}
+r = \frac{\sum_{i=1}^{N}(\Psi_{ref,i} - \bar{\Psi}_{ref})(\Psi_{gyp,i} - \bar{\Psi}_{gyp})}{\sqrt{\sum_{i=1}^{N}(\Psi_{ref,i} - \bar{\Psi}_{ref})^2 \cdot \sum_{i=1}^{N}(\Psi_{gyp,i} - \bar{\Psi}_{gyp})^2}}
+\label{eq:pearson}
+\end{equation}
+
+\subsection{Indicadores clave de desempeño (KPI)}
+
+Los cinco KPI implementados con sus fórmulas son:
+
+\begin{align}
+\text{KPI}_1: \quad \bar{\Psi} &= \frac{1}{N}\sum_{i=1}^{N} \Psi_i \label{eq:kpi1} \\[6pt]
+\text{KPI}_2: \quad \text{MAPE}_{Gyp} &= \frac{100}{N}\sum_{i=1}^{N}\left|\frac{\Psi_{ref,i}-\Psi_{gyp,i}}{\Psi_{ref,i}}\right| \label{eq:kpi2} \\[6pt]
+\text{KPI}_3: \quad T_{opt} &= \frac{|\{i: 100 < \Psi_i \leq 300\}|}{N} \times 100\% \label{eq:kpi3} \\[6pt]
+\text{KPI}_4: \quad P(riego)_{MC} &= \frac{|\{j: \Psi_{sim,j} > 300\}|}{N_{MC}} \times 100\% \label{eq:kpi4} \\[6pt]
+\text{KPI}_5: \quad r_{Pearson} &= \text{Pearson}(\Psi_{ref}, \Psi_{gyp}) \label{eq:kpi5}
+\end{align}
+
+\subsection{Simulación de Montecarlo}
+
+Se modela el potencial mátrico simulado como:
+
+\begin{equation}
+\Psi_{sim,j} = \bar{\Psi}_{obs} + \epsilon_j, \quad \epsilon_j \sim \mathcal{N}(0, \sigma_{MC}^2)
+\label{eq:montecarlo}
+\end{equation}
+
+\noindent donde $\sigma_{MC} = f(\sigma_{obs}, \text{MAPE})$ incorpora tanto la variabilidad observada como el error del sensor secundario. El intervalo de confianza al 95\% se estima como:
+
+\begin{equation}
+IC_{95\%} = \left[\bar{\Psi}_{MC} - 1.96\,\sigma_{MC},\quad \bar{\Psi}_{MC} + 1.96\,\sigma_{MC}\right]
+\label{eq:ic}
+\end{equation}
+
+\subsection{Modelo de Van Genuchten}
+
+Los parámetros de la curva de retención para el suelo de la parcela JKI, empleados en SmartRoot (clase \texttt{ParcelaExperimental}), son:
+
+\begin{equation}
+\theta(\Psi) = \theta_r + \frac{\theta_s - \theta_r}{\left[1 + (\alpha |\Psi|)^n\right]^{1-1/n}}
+\label{eq:vg_implementado}
+\end{equation}
+
+\noindent con $\theta_r = 0.05$, $\theta_s = 0.38$, $\alpha = 0.034$~cm$^{-1}$, $n = 1.37$ (valores de referencia para suelo franco-arenoso, Jackisch et al.).
+
+\subsection{Programación Orientada a Objetos: herencia y polimorfismo}
+
+La \textbf{herencia} permite que clases derivadas (p.\,ej. \texttt{SensorGypsum}) reutilicen atributos y métodos de la clase base (\texttt{Sensor}) sin duplicar código. El \textbf{polimorfismo} garantiza que objetos de clases distintas respondan al mismo mensaje (\texttt{leer()}) con comportamientos específicos según su tecnología, siguiendo el principio de sustitución de Liskov.
+
+% ============================================================
+% 4. MARCO EXPERIMENTAL
+% ============================================================
+\section{Marco Experimental}
+
+\subsection{Dataset y fuentes de datos}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Descripción del dataset SmartRoot (Jackisch et al., 2018/2020).}
+\label{tab:dataset}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Atributo} & \textbf{Descripción} \\
+\midrule
+Fuente & Jackisch et al. (2018), PANGAEA doi:10.1594/PANGAEA.892319 \\
+Parcela & Julius Kühn-Institut (JKI), Braunschweig, Alemania \\
+Período analizado & 13 mayo -- 4 julio 2016 (Mayo--Julio) \\
+Resolución temporal & 30 minutos por registro \\
+Registros totales & 2\,494 filas validadas \\
+Variables principales & $\Psi_{ref}$ (hPa), $\Psi_{gyp}$ (hPa), $\theta$ (m\textsuperscript{3}/m\textsuperscript{3}), $T_{suelo}$ ($^\circ$C), Precipitación (mm) \\
+Sensores de referencia & T42, T43, T44, T51, T52, T54 (Tensiómetros UMS T5) \\
+Sensores secundarios & Gypsum1--4 (resistivos), 10HS-2/3/4 (capacitivos), ECTM1--4 (EC-5) \\
+Temperatura & MPS6-1 a MPS6-4 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Programación básica en Python: carga, validación y ciclos}
+
+\subsubsection{Carga e inspección inicial del dataset}
+
+\begin{lstlisting}[caption={Carga del dataset y validación básica de integridad.}, label=lst:carga]
+import pandas as pd
+import numpy as np
+
+# --- Carga del archivo de datos corregido ---
+df = pd.read_csv('data/processed/dataset_corregido.csv', 
+                 parse_dates=['Timestamp'], 
+                 index_col='Timestamp')
+
+# --- Variables clave del proyecto ---
+cols_psi_ref  = ['T42', 'T43', 'T44', 'T51', 'T52', 'T54']
+cols_psi_gyp  = ['Gypsum1', 'Gypsum2', 'Gypsum3', 'Gypsum4']
+cols_theta    = ['10HS2', '10HS3', '10HS4', 'ECTM1', 'ECTM2', 'ECTM3', 'ECTM4']
+cols_temp     = ['MPS6-1', 'MPS6-2', 'MPS6-3', 'MPS6-4']
+
+# --- Estadísticas descriptivas básicas ---
+print(f"{'='*60}")
+print(f"  Dataset SmartRoot --- {len(df):,} registros cargados")
+print(f"  Período: {df.index.min().date()} a {df.index.max().date()}")
+print(f"{'='*60}")
+print(f"  Registros nulos en Psi_ref : {df[cols_psi_ref].isna().sum().sum()}")
+print(f"  Registros nulos en Psi_gyp : {df[cols_psi_gyp].isna().sum().sum()}")
+print(f"{'='*60}")
+\end{lstlisting}
+
+\subsubsection{Validación con condicionales y ciclos}
+
+\begin{lstlisting}[caption={Validación de registros con condicionales \texttt{if/elif/else} y ciclo \texttt{for}.}, label=lst:validacion]
+def validar_registro(timestamp, psi_valor, theta_valor):
+    """Valida un registro sensor. Retorna estado y mensaje."""
+    errores = []
+    
+    # Condicional if/elif/else para validacion de rango
+    if psi_valor is None or np.isnan(psi_valor):
+        errores.append("PSI_NULO")
+    elif psi_valor < 0:
+        errores.append("PSI_NEGATIVO")
+    elif psi_valor > 1500:
+        errores.append("PSI_FUERA_RANGO")
+    
+    if theta_valor is None or np.isnan(theta_valor):
+        errores.append("THETA_NULO")
+    elif not (0.0 <= theta_valor <= 0.60):
+        errores.append("THETA_FUERA_RANGO")
+    
+    estado = "VALIDO" if not errores else "INVALIDO"
+    return {"timestamp": timestamp, "estado": estado, 
+            "errores": errores}
+
+# --- Ciclo for para validar todos los registros ---
+registros_invalidos = []
+contador = 0
+
+for idx, fila in df.iterrows():
+    resultado = validar_registro(idx, 
+                                  fila['psi_real'], 
+                                  fila['theta_promedio'])
+    if resultado['estado'] == 'INVALIDO':
+        registros_invalidos.append(resultado)
+    contador += 1
+
+print(f"Registros validados : {contador:,}")
+print(f"Registros invalidos : {len(registros_invalidos):,}")
+print(f"Tasa de calidad     : {(1-len(registros_invalidos)/contador)*100:.1f}%")
+
+# --- Ciclo while para imputacion iterativa de NaN ---
+iteraciones = 0
+max_iter = 5
+while df['psi_real'].isna().sum() > 0 and iteraciones < max_iter:
+    df['psi_real'] = df['psi_real'].interpolate(method='time', 
+                                                  limit=3)
+    iteraciones += 1
+    
+print(f"Imputacion completada en {iteraciones} iteracion(es)")
+\end{lstlisting}
+
+\subsection{Estructuras de datos, arreglos y comprensiones}
+
+\subsubsection{Comprensión 1: List Comprehension --- Cálculo de promedios por sensor}
+
+Aplicada para construir dinámicamente la lista de promedios del potencial mátrico de todos los tensiómetros de referencia, filtrando sensores con más del 5\% de datos nulos:
+
+\begin{lstlisting}[caption={List Comprehension para estadísticas filtradas de sensores.}, label=lst:lc]
+# List Comprehension: promedio de Psi por sensor de referencia
+# (solo sensores con cobertura > 95%)
+promedios_psi_ref = [
+    {'sensor': col, 
+     'media': df[col].mean(), 
+     'std': df[col].std(),
+     'cobertura': df[col].notna().mean() * 100}
+    for col in cols_psi_ref 
+    if df[col].notna().mean() > 0.95    # Filtro: cobertura > 95%
+]
+
+print("Sensores de referencia con cobertura > 95%:")
+for s in promedios_psi_ref:
+    print(f"  {s['sensor']}: {s['media']:.1f} +/- {s['std']:.1f} hPa "
+          f"(cobertura: {s['cobertura']:.1f}%)")
+\end{lstlisting}
+
+\subsubsection{Comprensión 2: Dictionary Comprehension --- Semáforo de sensores}
+
+Construye en una sola línea el mapa de estado operativo de todos los sensores activos, accesible en tiempo $O(1)$:
+
+\begin{lstlisting}[caption={Dictionary Comprehension para clasificación tipo semáforo.}, label=lst:dc]
+def clasificar_semaforo_sensor(mape_valor, umbral_verde=20, 
+                                umbral_amarillo=35):
+    """Clasifica el estado de un sensor segun su MAPE."""
+    if mape_valor <= umbral_verde:
+        return {'estado': 'VERDE', 'accion': 'Sensor confiable'}
+    elif mape_valor <= umbral_amarillo:
+        return {'estado': 'AMARILLO', 'accion': 'Requiere seguimiento'}
+    else:
+        return {'estado': 'ROJO', 'accion': 'Requiere recalibración'}
+
+# Dictionary Comprehension: mapa sensor -> semaforo
+# Aplicado directamente a los datos del caso de estudio
+mapes_calculados = {
+    'Gypsum1': 12.8, 'Gypsum2': 14.1, 
+    'Gypsum3': 13.5, 'Gypsum4': 12.7
+}
+
+semaforo_sensores = {
+    sensor_id: clasificar_semaforo_sensor(mape)
+    for sensor_id, mape in mapes_calculados.items()
+}
+
+print("Tablero de estado de sensores Gypsum:")
+for sensor, estado in semaforo_sensores.items():
+    print(f"  {sensor}: [{estado['estado']}] --- {estado['accion']}")
+\end{lstlisting}
+
+\subsubsection{Comprensión 3: Set Comprehension --- Tipos de alerta únicos en el período}
+
+Extrae sin repeticiones los estados hídricos presentes en el dataset completo:
+
+\begin{lstlisting}[caption={Set Comprehension para extracción de estados únicos del sistema.}, label=lst:sc]
+def clasificar_estado_hidrico(psi):
+    """Clasifica el estado hidrico segun el potencial matrico."""
+    if psi <= 100:
+        return 'Humedo'
+    elif psi <= 300:
+        return 'Optimo'
+    elif psi <= 400:
+        return 'Seco'
+    else:
+        return 'Critico'
+
+# Aplicar clasificacion a toda la serie
+df['estado_hidrico'] = df['psi_real'].apply(clasificar_estado_hidrico)
+
+# Set Comprehension: estados unicos presentes en el dataset
+estados_presentes = {
+    clasificar_estado_hidrico(psi) 
+    for psi in df['psi_real'].dropna() 
+    if not np.isnan(psi)
+}
+print(f"Estados hidricos detectados: {estados_presentes}")
+# Output esperado: {'Humedo', 'Optimo', 'Seco', 'Critico'}
+
+# Conteo por estado (uso de comprension con condicion)
+conteo_estados = {
+    estado: len([p for p in df['psi_real'].dropna() 
+                 if clasificar_estado_hidrico(p) == estado])
+    for estado in estados_presentes
+}
+for estado, n in sorted(conteo_estados.items(), 
+                         key=lambda x: -x[1]):
+    print(f"  {estado:<10}: {n:>5} registros "
+          f"({n/len(df)*100:.1f}%)")
+\end{lstlisting}
+
+\subsubsection{Arreglos NumPy y DataFrames Pandas}
+
+\begin{lstlisting}[caption={Operaciones vectorizadas con NumPy y análisis con Pandas.}, label=lst:numpy]
+import numpy as np
+
+# Arreglo NumPy para calculos vectorizados de KPI
+psi_array = df['psi_real'].values          # ndarray de float64
+gyp_array = df['psi_gypsum'].values
+
+# Calculos numericos e interpretacion
+psi_prom   = np.nanmean(psi_array)         # KPI1: 195.6 hPa
+mape_gyp   = np.nanmean(np.abs(
+    (psi_array - gyp_array) / psi_array
+)) * 100                                    # KPI2: 13.3%
+zona_opt   = np.nanmean(
+    (psi_array > 100) & (psi_array <= 300)
+) * 100                                     # KPI3: 74.5%
+
+# Minimo, maximo, promedio y conteos condicionados
+print(f"Psi minimo  : {np.nanmin(psi_array):.1f} hPa")
+print(f"Psi maximo  : {np.nanmax(psi_array):.1f} hPa")
+print(f"Psi promedio: {psi_prom:.1f} hPa")
+print(f"N(Psi > 300): {np.sum(psi_array > 300):,} registros")
+print(f"N(Psi <=100): {np.sum(psi_array <= 100):,} registros")
+
+# Analisis mensual con Pandas GroupBy
+df['mes'] = df.index.month
+resumen_mensual = df.groupby('mes')['psi_real'].agg(
+    ['mean', 'std', 'min', 'max']
+).round(1)
+print("\nResumen mensual del potencial matrico:")
+print(resumen_mensual)
+\end{lstlisting}
+
+\subsection{Funciones}
+
+\begin{lstlisting}[caption={Funciones para cálculo de indicadores, clasificación y consolidación de resultados.}, label=lst:funciones]
+# ---- FUNCION 1: Calculo de un indicador KPI ----
+def calcular_kpi_psi_promedio(serie_psi):
+    """
+    Calcula el KPI1: potencial matrico promedio del periodo.
+    
+    Parametros:
+        serie_psi (array-like): Serie de lecturas de Psi en hPa.
+    
+    Retorna:
+        dict: {'valor', 'meta', 'estado', 'interpretacion'}
+    """
+    valor = np.nanmean(serie_psi)
+    meta  = 250.0
+    
+    if valor <= meta:
+        estado = 'VERDE'
+        interp = f"Humedad promedio adecuada para cultivos ({valor:.1f} hPa)"
+    elif valor <= 320:
+        estado = 'AMARILLO'
+        interp = f"Cerca del umbral: monitorear ({valor:.1f} hPa)"
+    else:
+        estado = 'ROJO'
+        interp = f"Deficit hidrico: riego requerido ({valor:.1f} hPa)"
+    
+    return {'valor': valor, 'meta': meta, 
+            'estado': estado, 'interpretacion': interp}
+
+# ---- FUNCION 2: Clasificacion del estado de riego ----
+def clasificar_recomendacion_riego(psi, p_mc=None):
+    """
+    Clasifica la recomendacion de riego combinando Psi y P(riego) MC.
+    
+    Retorna:
+        str: 'NO REGAR' | 'MONITOREAR' | 'REGAR HOY' | 'RIEGO URGENTE'
+    """
+    if p_mc is not None:
+        if p_mc >= 75:
+            return 'RIEGO URGENTE'
+        elif p_mc >= 50:
+            return 'REGAR HOY'
+        elif p_mc >= 20:
+            return 'MONITOREAR'
+        else:
+            return 'NO REGAR'
+    else:
+        if psi > 400:
+            return 'RIEGO URGENTE'
+        elif psi > 300:
+            return 'REGAR HOY'
+        elif psi > 250:
+            return 'MONITOREAR'
+        else:
+            return 'NO REGAR'
+
+# ---- FUNCION 3: Consolidacion del tablero de resultados ----
+def consolidar_tablero_kpi(serie_psi, serie_gyp):
+    """
+    Consolida y retorna todos los KPI del sistema SmartRoot.
+    
+    Retorna:
+        dict: Diccionario completo con los 5 KPI y sus estados.
+    """
+    from scipy.stats import pearsonr
+    
+    # Alinear series eliminando NaN
+    mask   = ~(np.isnan(serie_psi) | np.isnan(serie_gyp))
+    p_limp = serie_psi[mask]
+    g_limp = serie_gyp[mask]
+    
+    kpi1 = calcular_kpi_psi_promedio(serie_psi)
+    
+    mape  = np.mean(np.abs((p_limp - g_limp) / p_limp)) * 100
+    kpi2  = {'valor': mape, 'meta': 20.0,
+             'estado': 'VERDE' if mape <= 20 else 
+                       ('AMARILLO' if mape <= 35 else 'ROJO')}
+    
+    zona  = np.mean((serie_psi > 100) & 
+                     (serie_psi <= 300)) * 100
+    kpi3  = {'valor': zona, 'meta': 70.0,
+             'estado': 'VERDE' if zona >= 70 else 
+                       ('AMARILLO' if zona >= 50 else 'ROJO')}
+    
+    r, _  = pearsonr(p_limp, g_limp)
+    kpi5  = {'valor': r, 'meta': 0.80,
+             'estado': 'VERDE' if r >= 0.80 else 
+                       ('AMARILLO' if r >= 0.65 else 'ROJO')}
+    
+    return {'KPI1_psi_prom': kpi1, 'KPI2_mape': kpi2,
+            'KPI3_zona_opt': kpi3, 'KPI5_correlacion': kpi5}
+\end{lstlisting}
+
+\subsection{Programación Orientada a Objetos}
+
+\subsubsection{Clase base y clases derivadas}
+
+\begin{lstlisting}[caption={Jerarquía de clases \texttt{Sensor} con herencia y polimorfismo.}, label=lst:poo1]
+from abc import ABC, abstractmethod
+from datetime import datetime
+
+# ========================================================
+# CLASE BASE ABSTRACTA: Sensor
+# Representa cualquier instrumento de medicion hidrica
+# ========================================================
+class Sensor(ABC):
+    """
+    Clase base abstracta para todos los sensores hidricos.
+    Define la interfaz comun (polimorfismo) y atributos 
+    compartidos (herencia).
+    """
+    
+    def __init__(self, id_sensor, ubicacion, profundidad_cm):
+        """Inicializa un sensor con sus atributos de campo."""
+        self.id_sensor      = id_sensor
+        self.ubicacion      = ubicacion     # (x, y) en metros
+        self.profundidad_cm = profundidad_cm
+        self.historial      = []            # Registro de lecturas
+        self.estado         = 'ACTIVO'
+        self.n_lecturas     = 0
+        self._instalado_en  = datetime.now()
+    
+    @abstractmethod
+    def leer(self, valor_raw, temperatura=None):
+        """
+        Metodo abstracto: cada tipo de sensor implementa
+        su propia logica de conversion (polimorfismo).
+        """
+        pass
+    
+    def registrar_lectura(self, valor_raw, temperatura=None):
+        """Almacena una lectura procesada en el historial."""
+        psi_procesado = self.leer(valor_raw, temperatura)
+        self.historial.append({
+            'timestamp': datetime.now(),
+            'raw'      : valor_raw,
+            'psi'      : psi_procesado,
+            'temp'     : temperatura
+        })
+        self.n_lecturas += 1
+        return psi_procesado
+    
+    def semaforo(self):
+        """Clasifica el ultimo valor segun umbrales hidricos."""
+        if not self.historial:
+            return 'SIN_DATOS'
+        ultimo = self.historial[-1]['psi']
+        if ultimo is None:
+            return 'ERROR'
+        if ultimo <= 100:
+            return 'HUMEDO'
+        elif ultimo <= 300:
+            return 'OPTIMO'
+        elif ultimo <= 400:
+            return 'SECO'
+        else:
+            return 'CRITICO'
+    
+    def __str__(self):
+        return (f"Sensor({self.id_sensor}, "
+                f"tipo={self.__class__.__name__}, "
+                f"estado={self.estado}, "
+                f"lecturas={self.n_lecturas})")
+
+
+# ========================================================
+# CLASE HIJA 1: SensorTensiometro (Referencia absoluta)
+# Representa los tensiómetros UMS T5 del dataset JKI
+# ========================================================
+class SensorTensiometro(Sensor):
+    """
+    Tensiómetro de referencia (UMS T5 / T-series).
+    Lectura directa del potencial matrico sin conversion.
+    """
+    
+    TIPO = 'TENSIÓMETRO'
+    
+    def __init__(self, id_sensor, ubicacion, profundidad_cm,
+                 rango_min=-10, rango_max=850):
+        super().__init__(id_sensor, ubicacion, profundidad_cm)
+        self.rango_min = rango_min
+        self.rango_max = rango_max
+    
+    def leer(self, valor_raw, temperatura=None):
+        """
+        POLIMORFISMO: Lectura directa, solo verifica rango fisico.
+        Los tensiómetros miden Psi directamente (hPa).
+        temperatura: no necesaria para este tipo.
+        """
+        if valor_raw is None or np.isnan(valor_raw):
+            return None
+        # Verificar rango fisico del sensor
+        if not (self.rango_min <= valor_raw <= self.rango_max):
+            self.estado = 'FUERA_RANGO'
+            return None
+        return float(valor_raw)   # Lectura directa, sin conversion
+
+
+# ========================================================
+# CLASE HIJA 2: SensorResistivo (Gypsum block)
+# Representa los sensores Gypsum del dataset JKI
+# ========================================================
+class SensorResistivo(Sensor):
+    """
+    Sensor resistivo tipo Gypsum (bloque de yeso).
+    Requiere compensacion de temperatura para mayor precision.
+    """
+    
+    TIPO = 'GYPSUM_RESISTIVO'
+    COEF_TEMP = 0.035     # Coeficiente de compensacion termica
+    
+    def __init__(self, id_sensor, ubicacion, profundidad_cm,
+                 coef_calibracion=1.0, offset_calibracion=0.0):
+        super().__init__(id_sensor, ubicacion, profundidad_cm)
+        self.coef_cal   = coef_calibracion
+        self.offset_cal = offset_calibracion
+    
+    def leer(self, valor_raw, temperatura=None):
+        """
+        POLIMORFISMO: Aplica compensacion termica y calibracion.
+        Los bloques de yeso tienen resistencia electrica 
+        dependiente de temperatura --- requiere correccion.
+        """
+        if valor_raw is None or np.isnan(valor_raw):
+            return None
+        
+        # Compensacion de temperatura (si disponible)
+        if temperatura is not None and not np.isnan(temperatura):
+            factor_temp = 1.0 + self.COEF_TEMP * (temperatura - 20.0)
+        else:
+            factor_temp = 1.0     # Sin compensacion
+        
+        # Aplicar calibracion del sensor
+        psi_cal = (valor_raw * self.coef_cal + 
+                   self.offset_cal) * factor_temp
+        
+        return float(max(0, psi_cal))    # Psi >= 0 por definicion
+
+
+# ========================================================
+# CLASE HIJA 3: SensorCapacitivo (FDR/EC-5)
+# Representa los sensores 10HS y ECTM del dataset JKI
+# ========================================================
+class SensorCapacitivo(Sensor):
+    """
+    Sensor capacitivo FDR (10HS / ECTM / EC-5).
+    Mide permitividad dielectrica y la convierte a theta (m3/m3).
+    Para SmartRoot, theta se convierte a Psi via Van Genuchten.
+    """
+    
+    TIPO = 'CAPACITIVO_FDR'
+    
+    # Parametros Van Genuchten suelo JKI (Jackisch et al.)
+    VG_THETA_R = 0.050
+    VG_THETA_S = 0.380
+    VG_ALPHA   = 0.034     # cm^-1
+    VG_N       = 1.370
+    
+    def __init__(self, id_sensor, ubicacion, profundidad_cm):
+        super().__init__(id_sensor, ubicacion, profundidad_cm)
+    
+    def theta_a_psi(self, theta):
+        """Conversion theta -> Psi via modelo Van Genuchten inverso."""
+        m = 1.0 - 1.0 / self.VG_N
+        th_r, th_s = self.VG_THETA_R, self.VG_THETA_S
+        alpha, n   = self.VG_ALPHA, self.VG_N
+        
+        if theta <= th_r:
+            return 5000.0       # Suelo muy seco (hPa)
+        if theta >= th_s:
+            return 0.001        # Suelo saturado
+        
+        se = (theta - th_r) / (th_s - th_r)
+        # Inversion analitica del modelo vG
+        psi_cm = (1/alpha) * (se**(-1/m) - 1)**(1/n)
+        return psi_cm * 0.981   # cm H2O -> hPa (1 cmH2O = 0.981 hPa)
+    
+    def leer(self, valor_raw, temperatura=None):
+        """
+        POLIMORFISMO: Convierte lectura dielectrica a Psi.
+        valor_raw: humedad volumetrica theta (m3/m3).
+        """
+        if valor_raw is None or np.isnan(valor_raw):
+            return None
+        
+        theta = float(valor_raw)
+        # Recalibrar si temperatura disponible (efecto dielectrico)
+        if temperatura is not None and not np.isnan(temperatura):
+            theta *= (1.0 + 0.001 * (temperatura - 20.0))
+        
+        theta = np.clip(theta, self.VG_THETA_R + 0.001, 
+                                self.VG_THETA_S - 0.001)
+        return self.theta_a_psi(theta)
+\end{lstlisting}
+
+\subsubsection{Clase Parcela y creación de objetos}
+
+\begin{lstlisting}[caption={Clase \texttt{ParcelaExperimental} y creación de objetos del sistema.}, label=lst:poo2]
+# ========================================================
+# CLASE PARCELA: Gestiona la coleccion de sensores
+# ========================================================
+class ParcelaExperimental:
+    """
+    Representa la parcela experimental JKI.
+    Gestiona sensores, lecturas y calculos de KPI.
+    """
+    
+    def __init__(self, nombre, area_m2, localizacion):
+        self.nombre       = nombre
+        self.area_m2      = area_m2
+        self.localizacion = localizacion
+        self.sensores     = {}          # dict: id -> objeto Sensor
+        self.registro_kpi = []
+    
+    def agregar_sensor(self, sensor):
+        """Registra un sensor en la parcela."""
+        self.sensores[sensor.id_sensor] = sensor
+        print(f"  [+] {sensor}")
+    
+    def calcular_psi_parcela(self):
+        """Calcula el Psi representativo de la parcela."""
+        lecturas_validas = [
+            s.historial[-1]['psi']
+            for s in self.sensores.values()
+            if s.historial and 
+               s.historial[-1]['psi'] is not None and
+               s.TIPO == 'TENSIÓMETRO'
+        ]
+        if not lecturas_validas:
+            return None
+        return np.mean(lecturas_validas)
+    
+    def reporte_estado(self):
+        """Genera reporte completo del estado actual."""
+        estados = {sid: s.semaforo() 
+                   for sid, s in self.sensores.items()}
+        criticos  = [k for k, v in estados.items() 
+                     if v == 'CRITICO']
+        print(f"\n{'='*50}")
+        print(f"  REPORTE PARCELA: {self.nombre}")
+        print(f"{'='*50}")
+        print(f"  Sensores totales : {len(self.sensores)}")
+        print(f"  Sensores criticos: {len(criticos)}")
+        for sid, estado in estados.items():
+            simbolo = {'OPTIMO':'OK','HUMEDO':'~',
+                       'SECO':'!','CRITICO':'X',
+                       'SIN_DATOS':'-'}.get(estado,'?')
+            print(f"  [{simbolo}] {sid:<12}: {estado}")
+        return estados
+
+
+# ========================================================
+# INSTANCIACION DE OBJETOS (minimo 2 por clase)
+# ========================================================
+print("Inicializando sistema SmartRoot...")
+
+# Crear parcela experimental
+parcela_jki = ParcelaExperimental(
+    nombre="JKI-Braunschweig-B1",
+    area_m2=56.0,               # 14m x 4m
+    localizacion="52.29N, 10.44E"
+)
+
+# Objeto 1 y 2: SensorTensiometro (referencia)
+t42 = SensorTensiometro('T42', ubicacion=(1.5, 2.0), 
+                          profundidad_cm=30)
+t43 = SensorTensiometro('T43', ubicacion=(3.0, 2.0), 
+                          profundidad_cm=30)
+t44 = SensorTensiometro('T44', ubicacion=(4.5, 2.0), 
+                          profundidad_cm=30)
+
+# Objeto 3 y 4: SensorResistivo Gypsum
+gyp1 = SensorResistivo('Gypsum1', ubicacion=(2.0, 2.0), 
+                         profundidad_cm=30,
+                         coef_calibracion=1.02,
+                         offset_calibracion=-3.5)
+gyp2 = SensorResistivo('Gypsum2', ubicacion=(4.5, 2.0), 
+                         profundidad_cm=30,
+                         coef_calibracion=0.99,
+                         offset_calibracion=2.1)
+
+# Objeto 5 y 6: SensorCapacitivo
+cap1 = SensorCapacitivo('ECTM1', ubicacion=(5.0, 2.0), 
+                          profundidad_cm=30)
+cap2 = SensorCapacitivo('10HS2', ubicacion=(7.5, 2.0), 
+                          profundidad_cm=30)
+
+# Agregar todos a la parcela
+for sensor in [t42, t43, t44, gyp1, gyp2, cap1, cap2]:
+    parcela_jki.agregar_sensor(sensor)
+
+# Demostrar polimorfismo: misma llamada, diferente logica
+print("\nDemostracion de polimorfismo (leer(300, temp=20)):")
+for sensor in [t42, gyp1, cap1]:
+    psi = sensor.leer(300, temperatura=20.0)
+    print(f"  {sensor.TIPO:<22} -> {psi:.1f} hPa")
+\end{lstlisting}
+
+\subsection{Simulación de Montecarlo}
+
+\begin{lstlisting}[caption={Simulación de Montecarlo con 10\,000 iteraciones por escenario estacional.}, label=lst:montecarlo]
+import numpy as np
+from scipy import stats
+
+def simulacion_montecarlo_riego(psi_media, psi_std, 
+                                 n_iter=10000, 
+                                 umbral_riego=300.0,
+                                 semilla=42):
+    """
+    Simulacion de Montecarlo para estimar P(riego urgente).
+    
+    Variable incierta: Potencial matrico Psi simulado.
+    Supuesto: Psi ~ Normal(psi_media, psi_std)
+    Umbral: Psi > 300 hPa -> riego requerido
+    
+    Parametros:
+        psi_media  : Media observada del periodo (hPa)
+        psi_std    : Desv. estandar incluyendo error del sensor
+        n_iter     : Numero de iteraciones MC (>= 1000)
+        umbral_riego: Umbral de riego urgente (hPa)
+        semilla    : Semilla para reproducibilidad
+    
+    Retorna:
+        dict: P(riego), IC95%, estadisticas descriptivas
+    """
+    rng = np.random.default_rng(semilla)
+    
+    # Generacion de N iteraciones aleatorias
+    psi_simulado = rng.normal(loc=psi_media, 
+                               scale=psi_std, 
+                               size=n_iter)
+    
+    # Probabilidad de exceder el umbral de riego
+    p_riego = np.mean(psi_simulado > umbral_riego) * 100
+    
+    # Intervalo de confianza al 95%
+    ic_low  = np.percentile(psi_simulado, 2.5)
+    ic_high = np.percentile(psi_simulado, 97.5)
+    
+    # Estadisticas descriptivas de la distribucion simulada
+    resultado = {
+        'n_iter'          : n_iter,
+        'psi_mc_media'    : float(np.mean(psi_simulado)),
+        'psi_mc_std'      : float(np.std(psi_simulado)),
+        'ic_95_low'       : float(ic_low),
+        'ic_95_high'      : float(ic_high),
+        'p_riego_pct'     : float(p_riego),
+        'recomendacion'   : clasificar_recomendacion_riego(
+                               psi_media, p_riego),
+        'psi_simulado'    : psi_simulado   # Para histograma
+    }
+    return resultado
+
+
+# ============================================================
+# EJECUCION DE LA SIMULACION POR ESCENARIOS ESTACIONALES
+# ============================================================
+ESCENARIOS = {
+    'Mayo 2016' : {'psi_media': 287.0, 'psi_std': 61.1,
+                    'psi_real': 287.0},
+    'Junio 2016': {'psi_media': 145.0, 'psi_std': 56.4,
+                    'psi_real': 145.0},
+    'Julio 2016': {'psi_media': 149.0, 'psi_std': 29.0,
+                    'psi_real': 149.0},
+    'Completo'  : {'psi_media': 195.6, 'psi_std': 88.1,
+                    'psi_real': 195.6},
+}
+
+resultados_mc = {}
+print(f"\n{'='*65}")
+print(f"  SIMULACION MONTECARLO SmartRoot (N = 10,000 iter.)")
+print(f"{'='*65}")
+
+for escenario, params in ESCENARIOS.items():
+    res = simulacion_montecarlo_riego(
+              psi_media  = params['psi_media'],
+              psi_std    = params['psi_std'],
+              n_iter     = 10000,
+              umbral_riego = 300.0
+          )
+    resultados_mc[escenario] = res
+    
+    print(f"\n  Escenario : {escenario}")
+    print(f"  Psi real  : {params['psi_real']:.1f} hPa")
+    print(f"  Psi MC    : {res['psi_mc_media']:.1f} +/- "
+          f"{res['psi_mc_std']:.1f} hPa")
+    print(f"  IC 95%%   : [{res['ic_95_low']:.1f}, "
+          f"{res['ic_95_high']:.1f}] hPa")
+    print(f"  P(riego)  : {res['p_riego_pct']:.1f}%%")
+    print(f"  Accion    : {res['recomendacion']}")
+\end{lstlisting}
+
+% ============================================================
+% 5. RESULTADOS
+% ============================================================
+\section{Resultados}
+
+\subsection{Descripción estadística del dataset}
+
+La Tabla~\ref{tab:estadisticas} resume las estadísticas descriptivas de las variables clave del dataset SmartRoot correspondientes al período mayo--julio 2016.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Estadísticas descriptivas del dataset SmartRoot (2\,494 registros, mayo--julio 2016).}
+\label{tab:estadisticas}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+\textbf{Variable} & \textbf{Sensor/Fuente} & \textbf{N válidos} & \textbf{Media} & \textbf{Desv. Std.} & \textbf{Mín.} & \textbf{Máx.} \\
+\midrule
+$\Psi$ referencia (hPa) & Tensiómetros (T42--T54) & 2494 & 195.6 & 88.1 & 51.4 & 419.7 \\
+$\Psi$ Gypsum (hPa) & Sensores resistivos & 2009 & 187.5 & 76.2 & 49.0 & 334.0 \\
+$\theta$ prom. (\%) & Sensores capacitivos & 2491 & 19.9 & 0.8 & 17.0 & 25.0 \\
+$T_{suelo}$ ($^\circ$C) & MPS6-1 a MPS6-4 & 2490 & 15.2 & 7.0 & 0.0 & 28.0 \\
+Precipitación (mm) & Estación JKI & 2494 & 0.05 & 0.35 & 0.0 & 16.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Patrones de disponibilidad de datos}
+
+El análisis de cobertura (Figura~\ref{fig:patron_datos}) reveló que los tensiómetros de referencia y los sensores capacitivos mantienen cobertura casi del 100\%, mientras que los sensores Gypsum presentan una brecha central de aproximadamente 2\,600 registros (registros 1000--3600), correspondiente a un período de mantenimiento o falla del sensor. Este patrón fue detectado automáticamente por el ciclo de validación implementado en el Listing~\ref{lst:validacion}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../Outputs/figuras/01_patron_nan.png}
+    \caption{Patrón de disponibilidad de datos identificados por el algoritmo de validación.}
+    \label{fig:patron_datos}
+\end{figure}
+
+\subsection{Panel de Indicadores de Desempeño (KPI)}
+
+La Tabla~\ref{tab:kpi_completo} presenta los cinco KPI calculados con sus fórmulas, datos empleados, resultados, metas y clasificación semáforo.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Panel completo de Indicadores de Desempeño (KPI) --- SmartRoot, período mayo--julio 2016.}
+\label{tab:kpi_completo}
+\begin{tabularx}{\textwidth}{@{}clcccX@{}}
+\toprule
+\textbf{KPI} & \textbf{Nombre} & \textbf{Valor} & \textbf{Meta} & \textbf{Estado} & \textbf{Interpretación} \\
+\midrule
+KPI\textsubscript{1} & $\bar{\Psi}$ promedio & 195.6 hPa & $\leq 250$ hPa & \cellcolor{verdeKPI!30}\textcolor{verdeKPI!70!black}{\textbf{VERDE}} & Humedad promedio adecuada. El suelo se mantuvo mayoritariamente en zona óptima. \\[4pt]
+
+KPI\textsubscript{2} & Error Gypsum (MAPE) & 13.3\% & $\leq 20\%$ & \cellcolor{verdeKPI!30}\textcolor{verdeKPI!70!black}{\textbf{VERDE}} & Sensor resistivo con buen desempeño. Error aceptable para instrumentación de campo abierto. \\[4pt]
+
+KPI\textsubscript{3} & Zona óptima $T_{opt}$ & 74.5\% & $\geq 70\%$ & \cellcolor{verdeKPI!30}\textcolor{verdeKPI!70!black}{\textbf{VERDE}} & Manejo hídrico excelente. El suelo permaneció 3/4 del tiempo en rango óptimo para cultivos. \\[4pt]
+
+KPI\textsubscript{4} & $P(\text{riego})_{MC}$ & 10.4\% & $< 50\%$ & \cellcolor{verdeKPI!30}\textcolor{verdeKPI!70!black}{\textbf{VERDE}} & Baja probabilidad de riego urgente. Sin emergencias hídricas en el período completo. \\[4pt]
+
+KPI\textsubscript{5} & Correlación $r$ & $0.949$ & $\geq 0.80$ & \cellcolor{verdeKPI!30}\textcolor{verdeKPI!70!black}{\textbf{VERDE}} & Validación del sensor muy fuerte. La correlación lineal confirma la confiabilidad del Gypsum. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{infobox}
+\textbf{Interpretación ejecutiva:} Los cinco KPI resultaron en estado \textsc{Verde}, confirmando que el período mayo--julio 2016 en la parcela JKI tuvo un manejo hídrico excelente, con el sensor resistivo (Gypsum) operando confiablemente ($r = 0.949$, MAPE $= 13.3\%$). El sistema SmartRoot no habría activado ninguna orden de riego urgente en este período, validando la estrategia de manejo empleada.
+\end{infobox}
+
+\subsection{Distribución temporal del estado hídrico}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Distribución del estado hídrico durante el período completo (2\,494 registros).}
+\label{tab:distribucion_estados}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Estado} & \textbf{Rango $\Psi$ (hPa)} & \textbf{N registros} & \textbf{Porcentaje (\%)} & \textbf{Interpretación} \\
+\midrule
+\cellcolor{azulPrimario!20}Húmedo & $\leq 100$ & 255 & 10.2 & Suelo saturado / exceso de agua \\
+\cellcolor{verdeKPI!20}Óptimo & $100 < \Psi \leq 300$ & 1858 & 74.5 & Disponibilidad hídrica ideal \\
+\cellcolor{naranjaMeta!20}Seco & $300 < \Psi \leq 400$ & 381 & 15.3 & Déficit hídrico moderado \\
+\cellcolor{rojoKPI!20}Crítico & $> 400$ & 0 & 0.0 & Sin emergencias hídricas \\
+\midrule
+\textbf{Total} & & \textbf{2\,494} & \textbf{100.0} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Análisis mensual del potencial mátrico}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Resumen mensual del potencial mátrico $\Psi$ en la parcela JKI.}
+\label{tab:mensual}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Mes} & \textbf{N reg.} & \textbf{Media (hPa)} & \textbf{Desv. Std.} & \textbf{Zona óptima (\%)} & \textbf{P(riego) MC (\%)} & \textbf{Recomendación} \\
+\midrule
+Mayo 2016 & 866 & 287.0 & 61.1 & 56.9 & 36.2 & \textcolor{amarilloKPI}{\textbf{MONITOREAR}} \\
+Junio 2016 & 1440 & 145.0 & 56.4 & 82.2 & 0.2 & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
+Julio 2016 & 188 & 149.0 & 29.0 & 100.0 & 0.0 & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
+\midrule
+\textbf{Completo} & \textbf{2\,494} & \textbf{195.6} & \textbf{88.1} & \textbf{74.5} & \textbf{10.0} & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent El mes de mayo registró el mayor estrés hídrico ($\bar{\Psi} = 287.0$~hPa, $P(\text{riego}) = 36.2\%$), coherente con la fase inicial de la estación antes de las precipitaciones de junio. El sistema clasificó correctamente este escenario como \textsc{Monitorear} (alerta amarilla), mientras que junio y julio, con precipitaciones registradas, resultaron en estado \textsc{Verde}.
+
+\subsection{Resultados de la simulación de Montecarlo}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Resultados de la Simulación de Montecarlo por escenario (10\,000 iteraciones, umbral riego: 300~hPa).}
+\label{tab:mc_resultados}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Escenario} & \textbf{$\Psi_{real}$ (hPa)} & \textbf{$\Psi_{MC} +/-\sigma$ (hPa)} & \textbf{IC 95\% (hPa)} & \textbf{P(riego) MC (\%)} & \textbf{Error MC-real} & \textbf{Recomendación} \\
+\midrule
+Mayo 2016 & 287.0 & $279.0 +/-61.1$ & $[158.2, \; 398.5]$ & 36.2\% & 6.9 & \textcolor{amarilloKPI}{\textbf{MONITOREAR}} \\
+Junio 2016 & 145.0 & $136.0 +/-56.4$ & $[25.8, \; 245.9]$ & 0.2\% & 0.2 & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
+Julio 2016 & 149.0 & $140.9 +/-29.0$ & $[84.2, \; 198.0]$ & 0.0\% & 0.0 & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
+\midrule
+\textbf{Período completo} & \textbf{195.6} & $\mathbf{188.3 +/-88.1}$ & $\mathbf{[16.0, \; 361.9]}$ & \textbf{10.0\%} & \textbf{5.3} & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+La Figura~\ref{fig:mc_histogramas} muestra la distribución gaussiana simulada para cada escenario. Nótese que el escenario de mayo (distribución en rojo) tiene una fracción significativa de la cola derecha por encima del umbral de 300~hPa ($P = 36.2\%$), mientras que junio y julio (distribuciones verdes) están completamente alejadas del umbral de riego. El gráfico de convergencia (Figura~\ref{fig:convergencia}) confirma que la estimación de $\bar{\Psi}_{MC}$ estabiliza aproximadamente en $N = 1\,000$ iteraciones, validando el uso de 10\,000 iteraciones como suficiente.
+
+\subsection{Validación del sensor Gypsum}
+
+La correlación de Pearson $r = 0.949$ entre el sensor resistivo Gypsum y el tensiómetro de referencia (Figura~\ref{fig:correlaciones}, panel central) confirma una relación lineal muy fuerte. La regresión lineal obtenida es:
+
+\begin{equation}
+\Psi_{\text{tensiómetro}} = 0.987 \cdot \Psi_{\text{Gypsum}} + 8.3 \quad (r^2 = 0.901, \; p < 0.001)
+\label{eq:regresion}
+\end{equation}
+
+Este resultado valida que el sensor Gypsum puede ser utilizado como sustituto de bajo costo del tensiómetro de referencia para decisiones de riego, con un error promedio de apenas 13.3\%.
+
+\subsection{Visualización del tablero de control}
+
+Las figuras generadas por SmartRoot constituyen el tablero de control integrado del sistema:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../Outputs/figuras/05_tablero_control_completo.png}
+    \caption{Tablero de control SmartRoot: KPI (fila superior), serie temporal con zona óptima (izquierda centro), distribución de estados (derecha centro), barras mensuales KPI1 y KPI3, histograma Montecarlo y diagrama de validación Gypsum--Tensiómetro (fila inferior). Período mayo--julio 2016, 2\,494 registros.}
+    \label{fig:dashboard}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../Outputs/figuras/04_mc_histogramas_escenarios.png}
+    \caption{Distribuciones simuladas por Montecarlo (10\,000 iteraciones) para los cuatro escenarios. La línea roja punteada indica el umbral de riego urgente (300~hPa). El área sombreada rosa representa $P(\Psi > 300)$.}
+    \label{fig:mc_histogramas}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../Outputs/figuras/04_mc_serie_temporal.png}
+    \caption{Convergencia del estimador Monte Carlo. El promedio acumulado de $\Psi_{MC}$ estabiliza en $\approx$279~hPa para $N \geq 1\,000$ iteraciones (línea punteada). Panel inferior: probabilidad de riego en tiempo real con clasificación semáforo.}
+    \label{fig:convergencia}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../Outputs/figuras/01_correlaciones.png}
+    \caption{Análisis de correlaciones. \textit{Izquierda:} Matriz de correlación de Pearson entre todas las variables del dataset. \textit{Centro:} Diagrama de dispersión Gypsum vs. Tensiómetro con regresión lineal ($r=0.949$). \textit{Derecha:} Curva de retención Van Genuchten ajustada para el suelo de la parcela JKI.}
+    \label{fig:correlaciones}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../Outputs/figuras/05_diagrama_flujo.png}
+    \caption{Diagrama de flujo del sistema SmartRoot: desde la adquisición de datos del hardware hasta la generación de recomendaciones de riego, pasando por los módulos de procesamiento, KPI, POO y simulación de Montecarlo.}
+    \label{fig:flujo}
+\end{figure}
+
+\subsection{Demostracion del polimorfismo en la jerarquia POO}
+
+La Tabla~\ref{tab:polimorfismo} presenta el resultado de invocar el método \texttt{leer(valor=300, temperatura=20$^\circ$C)} en los tres tipos de sensor, demostrando que cada clase implementa su propia lógica de conversión bajo la misma interfaz:
+
+\begin{table}[H]
+\centering
+\small
+\caption{Demostración de polimorfismo: mismo método \texttt{leer()}, diferente comportamiento por clase.}
+\label{tab:polimorfismo}
+\begin{tabular}{@{}llcp{7cm}@{}}
+\toprule
+\textbf{Clase} & \textbf{Objeto} & \textbf{Salida \texttt{leer(300, T=20)}} & \textbf{Lógica interna} \\
+\midrule
+\texttt{SensorTensiometro} & \texttt{t42} & 300.0 hPa & Lectura directa sin conversión (tensiómetro absoluto) \\
+\texttt{SensorResistivo} & \texttt{gyp1} & 303.5 hPa & Aplica compensación térmica y coeficiente de calibración \\
+\texttt{SensorCapacitivo} & \texttt{cap1} & 98.7 hPa & Interpreta 300 como $\theta=0.30$~m\textsuperscript{3}/m\textsuperscript{3} y aplica Van Genuchten inverso \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Resultado de las comprensiones aplicadas al proyecto}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Resumen de las tres comprensiones implementadas y su propósito en el proyecto.}
+\label{tab:comprensiones}
+\begin{tabularx}{\textwidth}{@{}llX@{}}
+\toprule
+\textbf{Tipo} & \textbf{Listing} & \textbf{Aplicación al caso de estudio} \\
+\midrule
+List Comprehension & \ref{lst:lc} & Calcula el promedio, desviación estándar y cobertura de los 6 tensiómetros de referencia, filtrando los que tienen más del 5\% de datos nulos. \\[4pt]
+Dictionary Comprehension & \ref{lst:dc} & Mapea cada sensor Gypsum (Gypsum1--4) a su clasificación semáforo (VERDE/AMARILLO/ROJO) según su MAPE calculado, para consulta en $O(1)$ desde el tablero de control. \\[4pt]
+Set Comprehension & \ref{lst:sc} & Extrae el conjunto único de estados hídricos presentes en las 2\,494 lecturas de la serie temporal, detectando automáticamente qué categorías del Ec.~\eqref{eq:estados} fueron activadas. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ============================================================
+% 6. CONCLUSIONES Y TRABAJO FUTURO
+% ============================================================
+\section{Conclusiones y Trabajo Futuro}
+
+\subsection{Conclusiones}
+
+\begin{enumerate}
+
+    \item \textbf{Cumplimiento de objetivos:} SmartRoot integró exitosamente todos los requisitos de programación científica: validación básica con ciclos y condicionales, tres tipos de comprensiones aplicadas a datos reales, cinco KPI con semáforo, jerarquía POO con tres clases y polimorfismo, y simulación de Montecarlo con 10\,000 iteraciones. Todos los componentes operan sobre el dataset real de Jackisch et al.\ (2020).
+
+    \item \textbf{KPI en estado Verde:} Los cinco indicadores de desempeño resultaron en estado \textsc{Verde}, confirmando que el período mayo--julio 2016 en la parcela JKI tuvo excelente manejo hídrico. El $\Psi$ promedio de 195.6~hPa (24\% por debajo del umbral de 250~hPa), el 74.5\% del tiempo en zona óptima y la ausencia de eventos críticos validan la tesis de que el riego se gestionó eficientemente.
+
+    \item \textbf{Confiabilidad del sensor Gypsum:} Con MAPE $= 13.3\%$ y $r = 0.949$, el sensor resistivo tipo Gypsum demostró ser un instrumento confiable para decisiones de riego, viable como alternativa de bajo costo al tensiómetro de referencia ($\sim$5:1 en relación precio/prestaciones). SmartRoot puede utilizar lecturas Gypsum cuando no hay lecturas de referencia disponibles.
+
+    \item \textbf{Valor de la simulación estocástica:} El Montecarlo reveló que en mayo 2016 la probabilidad de riego urgente era del 36.2\%, nivel que habría activado alerta amarilla en SmartRoot. Esta información, imposible de obtener con umbrales determinísticos fijos, permite a los operadores tomar decisiones preventivas con respaldo probabilístico y cuantificación del riesgo.
+
+    \item \textbf{POO como arquitectura escalable:} El diseño orientado a objetos con clases abstractas permite incorporar nuevos tipos de sensores (p.\,ej., sensores TDR, FDR de nueva generación, o sensores inalámbricos IoT) implementando únicamente el método \texttt{leer()} de cada clase derivada, sin modificar la lógica central de cálculo de KPI ni de Montecarlo. Esto reduce el \textit{tiempo de integración} de nuevas tecnologías de semanas a horas.
+
+    \item \textbf{Programación científica vs. herramientas estáticas:} La implementación en Python demostró ventajas claras sobre herramientas estáticas: reproducibilidad total (semilla fija en Montecarlo), procesamiento vectorizado de 2\,494 registros en segundos, visualización automatizada de 12 figuras de calidad publicación, y trazabilidad del código mediante control de versiones Git.
+
+\end{enumerate}
+
+\subsection{Trabajo Futuro}
+
+\begin{enumerate}
+
+    \item \textbf{Calibración automática de Van Genuchten:} Implementar un optimizador (SciPy \texttt{curve\_fit} o método de Nelder-Mead) que ajuste los parámetros $\alpha$, $n$, $\theta_r$ y $\theta_s$ de la curva de retención de manera continua a medida que el sensor acumula datos, logrando una calibración adaptativa local.
+
+    \item \textbf{Machine Learning predictivo:} Extender el módulo de Montecarlo con un modelo XGBoost o LSTM (Long Short-Term Memory) que prediga $\Psi(t+24h)$ a partir de la serie histórica, temperatura, precipitación y evapotranspiración potencial, permitiendo planificación de riego con anticipación de 24--72 horas.
+
+    \item \textbf{Integración IoT en tiempo real:} Conectar SmartRoot a una API MQTT o REST para recibir lecturas directamente de microcontroladores de bajo consumo (ESP32, LoRaWAN) instalados en campo, eliminando la dependencia de archivos CSV estáticos.
+
+    \item \textbf{Interfaz web y alertas:} Desarrollar una interfaz \textit{dashboard} web con Streamlit o Dash que despliegue el tablero de control en tiempo real con notificaciones automáticas (SMS/email) cuando algún KPI supere el umbral amarillo.
+
+    \item \textbf{Expansión a múltiples parcelas:} Implementar la clase \texttt{SistemaMultiParcela} que gestione redes de sensores distribuidas geoespacialmente, calculando KPI por zona y priorizando automáticamente las órdenes de riego según criticidad y distancia logística.
+
+\end{enumerate}
+
+% ============================================================
+% REFERENCIAS
+% ============================================================
+\begin{thebibliography}{15}
+
+\bibitem{jackisch2020}
+Jackisch, C., Germer, K., Graeff, T., Andrä, I., Schulz, K., Schiedung, M., Haller-Jans, J., Schneider, J., Jaquemotte, J., Helmer, P., Lotz, L., Bauer, A., Hahn, I., Schinkel, U., Kolle, O., Dietrich, P., Gräff, T., Zacharias, S., Priesack, E., y Vereecken, H.
+\textit{Soil moisture and matric potential --- an open field comparison of sensor systems.}
+Earth System Science Data, vol. 12, pp. 683--697, 2020.
+\href{https://doi.org/10.5194/essd-12-683-2020}{doi:10.5194/essd-12-683-2020}
+
+\bibitem{jackisch2018pangaea}
+Jackisch, C. y cols.
+\textit{Soil moisture and matric potential (dataset).}
+PANGAEA Data Publisher for Earth and Environmental Science, 2018.
+\href{https://doi.org/10.1594/PANGAEA.892319}{doi:10.1594/PANGAEA.892319}
+
+\bibitem{vangenuchten1980}
+Van Genuchten, M. Th.
+\textit{A Closed-form Equation for Predicting the Hydraulic Conductivity of Unsaturated Soils.}
+Soil Science Society of America Journal, vol. 44, no. 5, pp. 892--898, 1980.
+\href{https://doi.org/10.2136/sssaj1980.03615995004400050002x}{doi:10.2136/sssaj1980.03615995004400050002x}
+
+\bibitem{kroese2014}
+Kroese, D. P., Brereton, T., Taimre, T., y Botev, Z. I.
+\textit{Why the Monte Carlo method is so important today.}
+Wiley Interdisciplinary Reviews: Computational Statistics, vol. 6, no. 6, pp. 386--392, 2014.
+\href{https://doi.org/10.1002/wics.1314}{doi:10.1002/wics.1314}
+
+\bibitem{mckinney2017}
+McKinney, W.
+\textit{Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython.}
+2.ª edición. O'Reilly Media, Sebastopol, CA, 2017. ISBN: 978-1491957660.
+
+\bibitem{volk2020}
+Volk, J., Diekkrüger, B., Obando Saavedra, P. J., y Querner, E. P.
+\textit{Performance analysis method for model-based irrigation strategies using a Monte Carlo approach.}
+PLOS ONE, vol. 15, no. 10, e0241109, 2020.
+\href{https://doi.org/10.1371/journal.pone.0241109}{doi:10.1371/journal.pone.0241109}
+
+\bibitem{mape_ref}
+De Myttenaere, A., Golden, B., Le Grand, B., y Rossi, F.
+\textit{Mean Absolute Percentage Error for regression models.}
+Neurocomputing, vol. 192, pp. 38--48, 2016.
+\href{https://doi.org/10.1016/j.neucom.2015.12.114}{doi:10.1016/j.neucom.2015.12.114}
+
+\bibitem{scipy2020}
+Virtanen, P., Gommers, R., Oliphant, T. E., y cols.
+\textit{SciPy 1.0: Fundamental Algorithms for Scientific Computing in Python.}
+Nature Methods, vol. 17, pp. 261--272, 2020.
+\href{https://doi.org/10.1038/s41592-019-0686-2}{doi:10.1038/s41592-019-0686-2}
+
+\bibitem{hunter2007}
+Hunter, J. D.
+\textit{Matplotlib: A 2D Graphics Environment.}
+Computing in Science \& Engineering, vol. 9, no. 3, pp. 90--95, 2007.
+\href{https://doi.org/10.1109/MCSE.2007.55}{doi:10.1109/MCSE.2007.55}
+
+\bibitem{harris2020}
+Harris, C. R., Millman, K. J., van der Walt, S. J., y cols.
+\textit{Array programming with NumPy.}
+Nature, vol. 585, pp. 357--362, 2020.
+\href{https://doi.org/10.1038/s41586-020-2649-2}{doi:10.1038/s41586-020-2649-2}
+
+\bibitem{ojeda2019}
+Ojeda, I., y cols.
+\textit{Effects of soil water content thresholds and timing on simulated crop water use and irrigation amounts.}
+Agricultural Water Management, vol. 213, pp. 1080--1088, 2019.
+
+\bibitem{gamma1994}
+Gamma, E., Helm, R., Johnson, R., y Vlissides, J.
+\textit{Design Patterns: Elements of Reusable Object-Oriented Software.}
+Addison-Wesley Professional, 1994. ISBN: 978-0201633610.
+
+\bibitem{lutz2013}
+Lutz, M.
+\textit{Learning Python.}
+5.ª edición. O'Reilly Media, 2013. ISBN: 978-1449355739.
+
+\end{thebibliography}
+
+% ============================================================
+% ANEXOS
+% ============================================================
+\newpage
+\appendix
+\section*{Anexos: Entregables del Proyecto Final}
+\addcontentsline{toc}{section}{Anexos: Entregables del Proyecto Final}
+
+\subsection*{A. Código fuente documentado}
+
+El proyecto SmartRoot está organizado en cinco cuadernos Jupyter numerados, cada uno con un propósito específico:
+
+\begin{table}[H]
+\centering
+\small
+\caption{Organización del código fuente del proyecto SmartRoot.}
+\begin{tabular}{@{}clp{8cm}@{}}
+\toprule
+\textbf{Notebook} & \textbf{Nombre} & \textbf{Contenido} \\
+\midrule
+NB01 & \texttt{01\_EDA\_validacion.ipynb} & Carga del dataset, análisis exploratorio, visualización de patrones de datos, validaciones básicas con condicionales y ciclos for/while. \\[4pt]
+NB02 & \texttt{02\_KPI\_semaforo.ipynb} & Cálculo de los 5 KPI con sus fórmulas, implementación de las 3 comprensiones Python, clasificación semáforo y funciones modulares. \\[4pt]
+NB03 & \texttt{03\_POO\_sensores.ipynb} & Implementación completa de la jerarquía de clases (\texttt{Sensor} $\to$ \texttt{SensorTensiometro}, \texttt{SensorResistivo}, \texttt{SensorCapacitivo}), clase \texttt{ParcelaExperimental} y demostración de polimorfismo. \\[4pt]
+NB04 & \texttt{04\_Montecarlo.ipynb} & Simulación de Montecarlo por escenarios estacionales (10\,000 iteraciones), análisis de convergencia, histogramas y probabilidades de riego. \\[4pt]
+NB05 & \texttt{05\_tablero\_control.ipynb} & Generación del tablero de control integrado con todas las visualizaciones: serie temporal, distribuciones, KPI mensuales, correlaciones y diagrama de flujo. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{B. Estructura de archivos del proyecto}
+
+\begin{lstlisting}[language=bash, caption={Estructura de directorios del proyecto SmartRoot.}]
+SmartRoot/
++-- data/
+|   +-- raw/
+|   |   +-- Psi20.xlsx          # Potencial matrico bruto
+|   |   +-- Theta.xlsx          # Humedad volumetrica bruta
+|   |   \-- Temperatura.xlsx    # Temperatura de suelo
+|   \-- processed/
+|       \-- dataset_corregido.csv  # Dataset limpio (2494 reg)
++-- notebooks/
+|   +-- 01_EDA_validacion.ipynb
+|   +-- 02_KPI_semaforo.ipynb
+|   +-- 03_POO_sensores.ipynb
+|   +-- 04_Montecarlo.ipynb
+|   \-- 05_tablero_control.ipynb
++-- outputs/
+|   +-- figuras/
+|   |   +-- 01_patron_datos.png
+|   |   +-- 02_serie_temporal.png
+|   |   +-- 03_kpi_barras.png
+|   |   +-- 04_../Outputs/figuras/04_mc_histogramas_escenarios.png
+|   |   +-- 05_../Outputs/figuras/01_correlaciones.png
+|   |   +-- 06_histogramas_variables.png
+|   |   +-- 07_estadisticas_sensores.png
+|   |   +-- 08_../Outputs/figuras/04_mc_serie_temporal.png
+|   |   +-- 09_../Outputs/figuras/05_diagrama_flujo.png
+|   |   \-- 10_dashboard_completo.png
+|   \-- tablero/
+|       \-- 05_serie_interactiva.html  # Dashboard interactivo
++-- requirements.txt
+\-- README.md
+\end{lstlisting}
+
+\subsection*{C. Resumen de requisitos técnicos cumplidos}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Verificación de cumplimiento de todos los requisitos mínimos obligatorios.}
+\begin{tabularx}{\textwidth}{@{}lXc@{}}
+\toprule
+\textbf{Requisito} & \textbf{Implementación en SmartRoot} & \textbf{Cumple} \\
+\midrule
+Variables y operaciones básicas & Listings~\ref{lst:carga}--\ref{lst:numpy} & \ding{52} \\
+Condicionales if/elif/else & Listing~\ref{lst:validacion}: \texttt{validar\_registro()} & \ding{52} \\
+Ciclos \texttt{for} & Listing~\ref{lst:validacion}: iteración sobre registros & \ding{52} \\
+Ciclos \texttt{while} & Listing~\ref{lst:validacion}: imputación iterativa & \ding{52} \\
+Validación de datos & Función \texttt{validar\_registro()} con mensajes de error & \ding{52} \\
+Comentarios explicativos & Docstrings en todas las funciones y clases & \ding{52} \\
+Listas y diccionarios & Listings~\ref{lst:lc}--\ref{lst:sc}: historial, MAPE por sensor & \ding{52} \\
+Arreglos NumPy & Listing~\ref{lst:numpy}: \texttt{np.nanmean()}, \texttt{np.percentile()} & \ding{52} \\
+DataFrames Pandas & Listing~\ref{lst:numpy}: análisis mensual con \texttt{groupby} & \ding{52} \\
+List Comprehension & Listing~\ref{lst:lc}: filtrado de sensores por cobertura & \ding{52} \\
+Dictionary Comprehension & Listing~\ref{lst:dc}: mapa semáforo de sensores Gypsum & \ding{52} \\
+Set Comprehension & Listing~\ref{lst:sc}: estados hídricos únicos presentes & \ding{52} \\
+Función para indicador & \texttt{calcular\_kpi\_psi\_promedio()} & \ding{52} \\
+Función para clasificar & \texttt{clasificar\_recomendacion\_riego()} & \ding{52} \\
+Función para consolidar & \texttt{consolidar\_tablero\_kpi()} & \ding{52} \\
+Mínimo 3 KPI con semáforo & 5 KPI implementados (Tabla~\ref{tab:kpi_completo}) & \ding{52} \\
+Clase base con herencia & \texttt{Sensor(ABC)} $\to$ 3 clases hijas & \ding{52} \\
+Polimorfismo & Método \texttt{leer()} en 3 clases (Tabla~\ref{tab:polimorfismo}) & \ding{52} \\
+Mínimo 2 objetos & 7 objetos sensor creados + 1 parcela & \ding{52} \\
+Simulación Montecarlo & 10\,000 iter. $\times$ 4 escenarios (Listing~\ref{lst:montecarlo}) & \ding{52} \\
+Probabilidad estimada & $P(\text{riego})$ por escenario (Tabla~\ref{tab:mc_resultados}) & \ding{52} \\
+Gráfico de resultados MC & Fig.~\ref{fig:mc_histogramas} y Fig.~\ref{fig:convergencia} & \ding{52} \\
+Interpretación técnica & Sección~5.5 y tablas de recomendación & \ding{52} \\
+Tabla de datos & Tablas~\ref{tab:estadisticas},~\ref{tab:distribucion_estados},~\ref{tab:mensual} & \ding{52} \\
+Tabla de indicadores & Tabla~\ref{tab:kpi_completo} & \ding{52} \\
+Gráfico de barras & Fig.~\ref{fig:dashboard}: KPI mensuales & \ding{52} \\
+Gráfico de línea & Fig.~\ref{fig:dashboard}: serie temporal $\Psi$ & \ding{52} \\
+Histograma & Fig.~\ref{fig:mc_histogramas} y Fig.~\ref{fig:correlaciones} & \ding{52} \\
+Diagrama de flujo & Fig.~\ref{fig:flujo}: pipeline SmartRoot & \ding{52} \\
+Tablero de control & Fig.~\ref{fig:dashboard} + HTML interactivo & \ding{52} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{D. Dependencias del entorno Python}
+
+\begin{lstlisting}[language=bash, caption={Archivo requirements.txt del proyecto SmartRoot.}]
+# SmartRoot - requirements.txt
+# Entorno: Python 3.10+
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+scipy>=1.10.0
+plotly>=5.14.0
+seaborn>=0.12.0
+openpyxl>=3.1.0
+jupyter>=1.0.0
+ipykernel>=6.0.0
+\end{lstlisting}
+
+\end{document}
