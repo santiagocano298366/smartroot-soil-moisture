@@ -76,4 +76,8 @@ Para replicar este proyecto en tu entorno local:
    Abre Jupyter Notebook (`jupyter notebook`) y ejecuta secuencialmente desde `notebooks/01_EDA.ipynb` hasta el final. Asegúrate de tener los archivos base descargados en la carpeta `data/raw`.
 
 ---
-*Desarrollado para la presentación y validación del proyecto final universitario.*
+
+**Autor:** Santiago Cano Molina  
+**Perfil:** Ingeniero Mecatrónico · Estudiante de Maestría en Automatización y Control Industrial  
+**Asignatura:** Fundamentos de Programación Científica · Posgrado 2026-1  
+**Docente:** Miguel A. Becerra Ph.D.
