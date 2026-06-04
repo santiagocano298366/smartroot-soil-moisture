@@ -10,9 +10,11 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{geometry}
-\geometry{left=2.5cm,right=2.5cm,top=3.0cm,bottom=3.0cm}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{xurl} % Permite romper URLs largas en cualquier punto
 \usepackage{hyperref}
 \hypersetup{
+    breaklinks=true,
     colorlinks=true,
     linkcolor=blue!70!black,
     citecolor=green!50!black,
@@ -27,6 +29,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{caption}
+\captionsetup{labelfont=bf, font=small, textfont=it}
 \usepackage{subcaption}
 \usepackage{parskip}
 \usepackage{setspace}
@@ -38,7 +41,7 @@
 \usepackage{mdframed}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
-\usepackage{lmodern}
+\usepackage{mathptmx} % Fuente Times, estándar en artículos científicos
 \usepackage[nopatch=footnote]{microtype}
 \usepackage{mathtools}
 \usepackage{siunitx}
@@ -70,9 +73,11 @@
     keywordstyle=\color{azulPrimario}\bfseries,
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\small,
+    basicstyle=\ttfamily\scriptsize,
+    columns=fullflexible,
     breakatwhitespace=false,
     breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
     captionpos=b,
     keepspaces=true,
     numbers=left,
@@ -1202,6 +1207,7 @@ KPI\textsubscript{5} & Correlación $r$ & $0.949$ & $\geq 0.80$ & \cellcolor{ver
 \small
 \caption{Resumen mensual del potencial mátrico $\Psi$ en la parcela JKI.}
 \label{tab:mensual}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lcccccc@{}}
 \toprule
 \textbf{Mes} & \textbf{N reg.} & \textbf{Media (hPa)} & \textbf{Desv. Std.} & \textbf{Zona óptima (\%)} & \textbf{P(riego) MC (\%)} & \textbf{Recomendación} \\
@@ -1212,7 +1218,8 @@ Julio 2016 & 188 & 149.0 & 29.0 & 100.0 & 0.0 & \textcolor{verdeKPI}{\textbf{NO 
 \midrule
 \textbf{Completo} & \textbf{2\,494} & \textbf{195.6} & \textbf{88.1} & \textbf{74.5} & \textbf{10.0} & \textcolor{verdeKPI}{\textbf{NO REGAR}} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \noindent El mes de mayo registró el mayor estrés hídrico ($\bar{\Psi} = 287.0$~hPa, $P(\text{riego}) = 36.2\%$), coherente con la fase inicial de la estación antes de las precipitaciones de junio. El sistema clasificó correctamente este escenario como \textsc{Monitorear} (alerta amarilla), mientras que junio y julio, con precipitaciones registradas, resultaron en estado \textsc{Verde}.
@@ -1300,7 +1307,7 @@ La Tabla~\ref{tab:polimorfismo} presenta el resultado de invocar el método \tex
 \small
 \caption{Demostración de polimorfismo: mismo método \texttt{leer()}, diferente comportamiento por clase.}
 \label{tab:polimorfismo}
-\begin{tabular}{@{}llcp{7cm}@{}}
+\begin{tabularx}{\textwidth}{@{}llcX@{}}
 \toprule
 \textbf{Clase} & \textbf{Objeto} & \textbf{Salida \texttt{leer(300, T=20)}} & \textbf{Lógica interna} \\
 \midrule
@@ -1308,7 +1315,7 @@ La Tabla~\ref{tab:polimorfismo} presenta el resultado de invocar el método \tex
 \texttt{SensorResistivo} & \texttt{gyp1} & 303.5 hPa & Aplica compensación térmica y coeficiente de calibración \\
 \texttt{SensorCapacitivo} & \texttt{cap1} & 98.7 hPa & Interpreta 300 como $\theta=0.30$~m\textsuperscript{3}/m\textsuperscript{3} y aplica Van Genuchten inverso \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{Resultado de las comprensiones aplicadas al proyecto}
@@ -1328,6 +1335,53 @@ Set Comprehension & \ref{lst:sc} & Extrae el conjunto único de estados hídrico
 \bottomrule
 \end{tabularx}
 \end{table}
+
+\subsection{Órdenes de Trabajo y Gestión de Cuadrillas}
+
+Como trabajo adicional, se implementó un sistema de asignación de Órdenes de Trabajo (OT) y cuadrillas de mantenimiento aplicando Programación Orientada a Objetos y polimorfismo. El sistema genera asignaciones automáticas priorizando la criticidad del estado hídrico. A continuación se presenta el registro de ejecución y el análisis de costos (Figura~\ref{fig:ordenes_trabajo}):
+
+\begin{lstlisting}[caption={Salida del sistema de asignación de OTs y análisis de costos.}]
+ASIGNACION AUTOMATICA DE OTs
+==================================================
+[OK] OT OT-004 asignada a cuadrilla C-Beta. Disponibilidad restante: 4.0h
+[OK] OT OT-002 asignada a cuadrilla C-Alfa. Disponibilidad restante: 4.5h
+[OK] OT OT-003 asignada a cuadrilla C-Beta. Disponibilidad restante: 0.0h
+[OK] OT OT-001 asignada a cuadrilla C-Alfa. Disponibilidad restante: 2.5h
+[ALERTA] No hay cuadrillas con capacidad para la OT OT-005 (Prioridad 3)
+
+RESULTADO DE LA PROGRAMACION
+
+Programacion Cuadrilla C-Alfa (Zona: Sector Norte)
+   Horas capacidad: 8.0 | Asignadas: 5.5
+   --------------------------------------------------
+   - [OT-002] Riego Urgente / Critica | Prio: 1 | 3.5h | ANS: 4h
+   - [OT-001] Mantenimiento Preventivo | Prio: 3 | 2.0h | ANS: 48h
+   --------------------------------------------------
+
+Programacion Cuadrilla C-Beta (Zona: Sector Sur)
+   Horas capacidad: 6.0 | Asignadas: 6.0
+   --------------------------------------------------
+   - [OT-004] Riego Urgente / Critica | Prio: 1 | 2.0h | ANS: 3h
+   - [OT-003] Instalacion Equipos | Prio: 2 | 4.0h | ANS: 24h
+   --------------------------------------------------
+
+ANALISIS DE COSTOS (Demostracion de Polimorfismo)
+==================================================
+[OT-001] Mantenimiento Preventivo  -> Costo: USD 55.00
+[OT-002] Riego Urgente / Critica   -> Costo: USD 105.00
+[OT-003] Instalacion Equipos       -> Costo: USD 121.00
+[OT-004] Riego Urgente / Critica   -> Costo: USD 60.00
+[OT-005] Mantenimiento Preventivo  -> Costo: USD 75.00
+--------------------------------------------------
+COSTO TOTAL ESTIMADO DEL DIA: USD 416.00
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../outputs/figuras/06_ordenes_trabajo.png}
+    \caption{Resultados del análisis de órdenes de trabajo generados mediante el modelo de POO.}
+    \label{fig:ordenes_trabajo}
+\end{figure}
 
 % ============================================================
 % 6. CONCLUSIONES Y TRABAJO FUTURO
@@ -1360,7 +1414,7 @@ Set Comprehension & \ref{lst:sc} & Extrae el conjunto único de estados hídrico
 
     \item \textbf{Machine Learning predictivo:} Extender el módulo de Montecarlo con un modelo XGBoost o LSTM (Long Short-Term Memory) que prediga $\Psi(t+24h)$ a partir de la serie histórica, temperatura, precipitación y evapotranspiración potencial, permitiendo planificación de riego con anticipación de 24--72 horas.
 
-    \item \textbf{Integración IoT en tiempo real:} Conectar SmartRoot a una API MQTT o REST para recibir lecturas directamente de microcontroladores de bajo consumo (ESP32, LoRaWAN) instalados en campo, eliminando la dependencia de archivos CSV estáticos.
+    \item \textbf{Integración IoT en tiempo real:} Conectar SmartRoot a una API MQTT o REST para recibir lecturas directamente de micro\-controladores de bajo consumo (ESP32, LoRaWAN) instalados en campo, eliminando la dependencia de archivos CSV estáticos.
 
     \item \textbf{Interfaz web y alertas:} Desarrollar una interfaz \textit{dashboard} web con Streamlit o Dash que despliegue el tablero de control en tiempo real con notificaciones automáticas (SMS/email) cuando algún KPI supere el umbral amarillo.
 
@@ -1372,6 +1426,7 @@ Set Comprehension & \ref{lst:sc} & Extrae el conjunto único de estados hídrico
 % REFERENCIAS
 % ============================================================
 \begin{thebibliography}{15}
+\raggedright
 
 \bibitem{jackisch2020}
 Jackisch, C., Germer, K., Graeff, T., Andrä, I., Schulz, K., Schiedung, M., Haller-Jans, J., Schneider, J., Jaquemotte, J., Helmer, P., Lotz, L., Bauer, A., Hahn, I., Schinkel, U., Kolle, O., Dietrich, P., Gräff, T., Zacharias, S., Priesack, E., y Vereecken, H.
@@ -1465,7 +1520,7 @@ El proyecto SmartRoot está organizado en cinco cuadernos Jupyter numerados, cad
 \centering
 \small
 \caption{Organización del código fuente del proyecto SmartRoot.}
-\begin{tabular}{@{}clp{8cm}@{}}
+\begin{tabularx}{\textwidth}{@{}clX@{}}
 \toprule
 \textbf{Notebook} & \textbf{Nombre} & \textbf{Contenido} \\
 \midrule
@@ -1473,9 +1528,10 @@ NB01 & \texttt{01\_EDA\_validacion.ipynb} & Carga del dataset, análisis explora
 NB02 & \texttt{02\_KPI\_semaforo.ipynb} & Cálculo de los 5 KPI con sus fórmulas, implementación de las 3 comprensiones Python, clasificación semáforo y funciones modulares. \\[4pt]
 NB03 & \texttt{03\_POO\_sensores.ipynb} & Implementación completa de la jerarquía de clases (\texttt{Sensor} $\to$ \texttt{SensorTensiometro}, \texttt{SensorResistivo}, \texttt{SensorCapacitivo}), clase \texttt{ParcelaExperimental} y demostración de polimorfismo. \\[4pt]
 NB04 & \texttt{04\_Montecarlo.ipynb} & Simulación de Montecarlo por escenarios estacionales (10\,000 iteraciones), análisis de convergencia, histogramas y probabilidades de riego. \\[4pt]
-NB05 & \texttt{05\_tablero\_control.ipynb} & Generación del tablero de control integrado con todas las visualizaciones: serie temporal, distribuciones, KPI mensuales, correlaciones y diagrama de flujo. \\
+NB05 & \texttt{05\_tablero\_control.ipynb} & Generación del tablero de control integrado con todas las visualizaciones: serie temporal, distribuciones, KPI mensuales, correlaciones y diagrama de flujo. \\[4pt]
+NB06 & \texttt{06\_ordenes\_trabajo\_mantenimiento.ipynb} & Sistema de asignación de OTs y cuadrillas usando POO, heurísticas simples y análisis de costos mediante polimorfismo. \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection*{B. Estructura de archivos del proyecto}
@@ -1494,7 +1550,8 @@ SmartRoot/
 |   +-- 02_KPI_semaforo.ipynb
 |   +-- 03_POO_sensores.ipynb
 |   +-- 04_Montecarlo.ipynb
-|   \-- 05_tablero_control.ipynb
+|   +-- 05_tablero_control.ipynb
+|   \-- 06_ordenes_trabajo_mantenimiento.ipynb
 +-- outputs/
 |   +-- figuras/
 |   |   +-- 01_patron_datos.png
@@ -1506,7 +1563,8 @@ SmartRoot/
 |   |   +-- 07_estadisticas_sensores.png
 |   |   +-- 08_../Outputs/figuras/04_mc_serie_temporal.png
 |   |   +-- 09_../Outputs/figuras/05_diagrama_flujo.png
-|   |   \-- 10_dashboard_completo.png
+|   |   +-- 10_dashboard_completo.png
+|   |   \-- 11_06_ordenes_trabajo.png
 |   \-- tablero/
 |       \-- 05_serie_interactiva.html  # Dashboard interactivo
 +-- requirements.txt

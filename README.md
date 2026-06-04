@@ -57,6 +57,12 @@ El proyecto utiliza un conjunto de datos real tomado de la red PANGAEA.
 
 *(Nota: Para proteger el repositorio de sobrecarga de archivos masivos, se incluye un archivo de referencia o script de carga).*
 
+## 🖥️ Tablero de Control Interactivo (Lovable)
+
+El prototipo interactivo del Dashboard (Tablero de Control) de SmartRoot ha sido diseñado para visualizar los KPIs y el modelo de simulación de Montecarlo. Puedes explorarlo aquí:
+
+🔗 **[Ver Tablero de Control (Lovable App)](https://root-insight-deck.lovable.app)**
+
 ## 🚀 Uso Rápido y Ejecución
 
 Para replicar este proyecto en tu entorno local:
